@@ -1,0 +1,2 @@
+class Scribble < ApplicationRecord
+end
