@@ -23,8 +23,8 @@ Scribble.create!([{
 }, {
   name: "gameofthrones",
   body: "When you play the game of thrones, you win or you die.",
-  locked: true
+  locked: true,
+  password: "winteriscoming"
 }])
-
 
 puts "Done seeding! 🌱"
