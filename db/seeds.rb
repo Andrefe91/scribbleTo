@@ -7,3 +7,24 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+puts "Cleaning database 👀"
+Scribble.destroy_all
+
+puts "Seeding scribbles..."
+Scribble.create!([{
+  name: "test1",
+  body: "This is a test scribble.",
+  locked: false
+}, {
+  name: "test2",
+  body: "This is the second test scribble.",
+  locked: false
+}, {
+  name: "gameofthrones",
+  body: "When you play the game of thrones, you win or you die.",
+  locked: true
+}])
+
+
+puts "Done seeding! 🌱"
