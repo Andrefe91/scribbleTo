@@ -11,6 +11,5 @@ class Scribble < ApplicationRecord
             allow_blank: true, # Allows it to be empty/nil safely
             if: :password_digest_changed?
 
-        
 
 end

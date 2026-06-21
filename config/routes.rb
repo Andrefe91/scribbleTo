@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   # get "pages/index"
 
   root "pages#index"
-  get "/:name", to: "scribble#show", as: "scribble"
+
+  get "/:name", to: "scribbles#show", as: "scribble"
+  resources :scribbles, only: [:new, :create]
 end
