@@ -1,8 +1,6 @@
 class ScribblesController < ApplicationController
   def show
     @scribble = Scribble.find_by(name: params[:name])
-
-    puts "Scribble found: #{@scribble.inspect}"
     redirect_to new_scribble_path(name: params[:name]), alert: "Item not found" and return if @scribble.nil?
   end
 

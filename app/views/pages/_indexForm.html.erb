@@ -1,0 +1,5 @@
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label :name, "Scribble Name:" %>
+  <%= form.search_field :name %>
+  <%= form.submit "Go!" %>
+<% end %>

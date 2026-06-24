@@ -1,11 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  body: MyText
-  locked: false
-
-two:
-  name: MyString
-  body: MyText
+test:
+  name: testScribble
+  body: This is a test scribble for the minitest cases.
   locked: false

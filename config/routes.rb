@@ -20,5 +20,5 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "/:name", to: "scribbles#show", as: "scribble"
-  resources :scribbles, only: [:new, :create]
+  resources :scribbles, only: [:new, :create], param: :name
 end

@@ -13,6 +13,10 @@ Scribble.destroy_all
 
 puts "Seeding scribbles..."
 Scribble.create!([{
+  name: "test",
+  body: "This is a test scribble for the test cases.",
+  locked: false
+},{
   name: "test1",
   body: "This is a test scribble.",
   locked: false
