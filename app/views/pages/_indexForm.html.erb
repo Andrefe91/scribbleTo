@@ -1,11 +1,12 @@
-<%= form_with url: root_path, method: :get, class:
-"flex flex-initial
+<%= form_with url: root_path, method: :get,
+local: true do |form| %>
+<div class="flex flex-initial
 p-2
 mt-10
-rounded-lg border-2 border-sky-500",
-local: true do |form| %>
+rounded-lg border-2 border-sky-500">
   <%= form.label :name, "Scribble Name:" %>
   <%= form.search_field :name %>
 
   <%= form.submit  "Go!" %>
+</div>
 <% end %>

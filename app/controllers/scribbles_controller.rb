@@ -5,8 +5,14 @@ class ScribblesController < ApplicationController
   end
 
   def new
+
+    #If the user tries to create a scribble with a name that already exists, redirect them to the existing scribble instead of showing the new form
+    if params[:name].present? && Scribble.exists?(name: params[:name])
+      redirect_to scribble_path(params[:name]), alert: "That scribble already exists!" and return
+    end
+
     @scribble = Scribble.new
-    puts "New Scribble #{params[:name]}"
+    @scribble.name = params[:name]
   end
 
   def create
