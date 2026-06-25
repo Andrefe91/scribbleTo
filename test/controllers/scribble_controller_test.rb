@@ -18,18 +18,29 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Item not found", flash[:alert]
   end
 
-  test "should create scribble with valid params" do
-    assert_difference("Scribble.count") do
-      post scribbles_url, params: { name: "unique-name", body: "text", password: "123" }
+  test "should create scribble with valid parameters and redirect" do
+    assert_difference("Scribble.count", 1) do
+      post scribbles_url, params: {
+        scribble: {
+          body: "My Brand New Scribble",
+          name: "Cool New Title!", # The concern will normalize this to "cool-new-title"
+        }
+      }
     end
 
-    assert_redirected_to scribble_path(Scribble.last)
-    assert_equal "Scribble was successfully created!", flash[:notice]
+    new_scribble = Scribble.last
+
+    assert_redirected_to scribble_path(new_scribble)
+
+    follow_redirect!
+    assert_response :success
+
+    assert_equal "cool-new-title", new_scribble.name
   end
 
   test "should not create scribble and render new with error status on failure" do
     assert_no_difference("Scribble.count") do
-      # Passing invalid attributes (assuming name is required in model)
+      # Passing invalid attributes (name is required in model)
       post scribbles_url, params: { scribble: { name: "" } }
     end
 
