@@ -23,7 +23,8 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="w-screen h-screen flex flex-col justify-center-safe">
+
+  <body data-controller="timezone" class="w-screen h-screen flex flex-col justify-center-safe">
     <%= yield %>
   </body>
 </html>

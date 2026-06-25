@@ -2,3 +2,7 @@
     <h2>Scribble name: <%= @scribble.name %></h2>
     <p>Scribble body: <%= @scribble.body %></p>
 </div>
+
+<div>
+    <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
+</div>

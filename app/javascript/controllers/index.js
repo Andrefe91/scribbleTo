@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import TimezoneController from "./timezone_controller"
+application.register("timezone", TimezoneController)
