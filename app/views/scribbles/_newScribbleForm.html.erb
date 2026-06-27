@@ -1,15 +1,22 @@
-<%= form_with model: @scribble do |form|  %>
-    <div class="flex flex-col">
-        <div>
-            <%= form.label :name %>
-            <%= form.text_field :name %>
-        </div>
-        <div>
-            <%= form.label :body %>
-            <%= form.rich_textarea :body %>
+<div data-controller="uniqueness-validation">
+    <%= form_with model: @scribble do |form|  %>
+        <div class="flex flex-col">
+            <div>
+                <%= form.label :name %>
+                <%= form.text_field :name, data: {
+                    uniqueness_validation_target: "input",
+                  action: "blur->uniqueness-validation#check"
+                },
+                class: "mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm" %>
+            </div>
+            <p data-uniqueness-validation-target="error" class="mt-2 text-sm text-red-600 hidden"></p>
+            <div>
+                <%= form.label :body %>
+                <%= form.rich_textarea :body %>
+            </div>
+
+            <%= form.submit "Save!" %>
         </div>
 
-        <%= form.submit "Save!" %>
-    </div>
-
-<% end %>
+    <% end %>
+</div>

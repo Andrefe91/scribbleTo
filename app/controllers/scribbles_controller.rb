@@ -26,6 +26,12 @@ class ScribblesController < ApplicationController
     end
   end
 
+  def check_uniqueness
+    exists = Scribble.exists?(["LOWER(name) = ?", params[:name].to_s.downcase])
+
+    render json: { unique: !exists }
+  end
+
   private
 
   def scribble_params

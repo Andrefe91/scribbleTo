@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import TimezoneController from "./timezone_controller"
 application.register("timezone", TimezoneController)
+
+import UniquenessValidationController from "./uniqueness_validation_controller"
+application.register("uniqueness-validation", UniquenessValidationController)
