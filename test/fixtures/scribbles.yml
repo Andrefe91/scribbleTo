@@ -2,5 +2,4 @@
 
 test:
   name: testScribble
-  body: This is a test scribble for the minitest cases.
   locked: false

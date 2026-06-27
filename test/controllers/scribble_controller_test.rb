@@ -8,8 +8,8 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
   test "should show scribble if found" do
     get scribble_url(name: @scribble.name)
     assert_response :success
-    # puts "Response body: #{response.body}"
-    assert_match @scribble.body, response.body
+    
+    assert_select ".trix-content", text: /This is a test scribble for the minitest cases, now wrapped in Action Text!/
   end
 
   test "should redirect to new if scribble is not found" do

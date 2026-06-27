@@ -1,0 +1,4 @@
+scribble_test_body:
+  record: test (Scribble)
+  name: body
+  body: "This is a test scribble for the minitest cases, now wrapped in <strong>Action Text</strong>!"
