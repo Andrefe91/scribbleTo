@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import BlockTrixUploadsController from "./block_trix_uploads_controller"
+application.register("block-trix-uploads", BlockTrixUploadsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

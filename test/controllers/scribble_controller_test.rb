@@ -8,7 +8,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
   test "should show scribble if found" do
     get scribble_url(name: @scribble.name)
     assert_response :success
-    
+
     assert_select ".trix-content", text: /This is a test scribble for the minitest cases, now wrapped in Action Text!/
   end
 
@@ -42,6 +42,22 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Scribble.count") do
       # Passing invalid attributes (name is required in model)
       post scribbles_url, params: { scribble: { name: "" } }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "should not create scribble if body contains an attachment" do
+    # A simulated action text payload containing an embedded file/image layout tag
+    malicious_body = 'Here is a text <action-text-attachment sgid="123" content-type="image/png"></action-text-attachment>'
+
+    assert_no_difference("Scribble.count") do
+      post scribbles_url, params: {
+        scribble: {
+          name: "secureScribble",
+          body: malicious_body
+        }
+      }
     end
 
     assert_response :unprocessable_entity
