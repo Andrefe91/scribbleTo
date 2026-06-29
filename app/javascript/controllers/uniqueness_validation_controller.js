@@ -4,7 +4,20 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "error"];
 
-  async check(event) {
+  connect() {
+    this.timeout = null;
+  }
+
+  // Debounce the uniqueness check to avoid too many requests
+  checkWithDelay() {
+    clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
+      this.checkUniqueName();
+    }, 400) //400 ms delay to avoid too many requests
+  }
+
+  async checkUniqueName(event) {
     const name = this.inputTarget.value.trim();
 
     if (!name) {
@@ -15,6 +28,13 @@ export default class extends Controller {
     try {
       // Fetch uniqueness state from our Rails endpoint
       const response = await fetch(`/scribbles/check_uniqueness?name=${encodeURIComponent(name)}`);
+
+      if (!response.ok) {
+        const errorText = await response.json();
+        this.showError(errorText.error || "An error occurred on our end. Please try again later.");
+        return;
+      }
+
       const data = await response.json();
 
       if (!data.unique) {

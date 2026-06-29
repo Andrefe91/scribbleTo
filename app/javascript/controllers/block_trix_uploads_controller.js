@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 // Connects to data-controller="block-trix-uploads"
 export default class extends Controller {
 	connect() {
-		console.log("block-trix-uploads controller connected ✅");
 
 		// Attach the listener locally to the element running the controller
 		this.element.addEventListener("trix-file-accept", this.blockUploads);
