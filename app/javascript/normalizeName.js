@@ -3,5 +3,5 @@ export default function normalizeName(name) {
 		.toLowerCase()
 		.trimStart()
 		.replace(/\s+(?=\S)/g, "-")
-		.replace(/[^a-z0-9- ]/g, "");
+		.replace(/[^a-z0-9\- _+.~]/g, "");
 }

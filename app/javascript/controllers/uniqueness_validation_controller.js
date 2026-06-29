@@ -4,9 +4,13 @@ import normalizeName from "../normalizeName.js";
 // Connects to data-controller="uniqueness-validation"
 export default class extends Controller {
 	static targets = ["input", "error", "submitButton"];
+	static RESERVED_WORDS = Object.freeze(["admin", "assets", "api", "about", "contact", "help", "support", "login", "logout", "signup", "settings"]);
+
+	static isReserved(word) {
+		return this.RESERVED_WORDS.includes(word.toLowerCase());
+	}
 
 	connect() {
-
 		this.timeout = null;
 	}
 
@@ -25,6 +29,11 @@ export default class extends Controller {
 
 		if (!name) {
 			this.clearError();
+			return;
+		}
+
+		if (this.constructor.isReserved(name)) {
+			this.showError("Sorry, this name is reserved and cannot be used");
 			return;
 		}
 
@@ -60,7 +69,7 @@ export default class extends Controller {
 		this.errorTarget.classList.remove("hidden");
 		this.inputTarget.classList.add("border-red-500", "focus:ring-red-500");
 		this.inputTarget.classList.remove("border-gray-300", "focus:ring-sky-500");
-    
+
     // Disable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {
 			this.submitButtonTarget.disabled = true;

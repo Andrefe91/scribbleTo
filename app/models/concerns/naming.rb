@@ -10,7 +10,7 @@ module Naming
               presence: true,
               uniqueness: { case_sensitive: false },
               length: { in: 3..50 },
-              format: { with: /\A[a-z0-9-]+\z/, message: "can only contain lowercase letters, numbers, and hyphens" },
+              format: { with: /\A[a-z0-9\- _+.~]+\z/, message: "can only contain lowercase letters, numbers, hyphens, spaces, underscores, plus signs, periods, and tildes" },
               exclusion: { in: RESERVED_WORDS, message: "'%{value}' is reserved and cannot be used" }
 
     def to_param
@@ -23,6 +23,6 @@ module Naming
   def normalize_name
     return if name.blank?
 
-    self.name = name.to_s.downcase.strip.gsub(/\s+/, "-").gsub(/[^a-z0-9-]/, "")
+    self.name = name.to_s.downcase.strip.gsub(/\s+/, "-").gsub(/[^a-z0-9\- _+.~]/, "")
   end
 end
