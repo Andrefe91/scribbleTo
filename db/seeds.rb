@@ -16,23 +16,32 @@ Scribble.create!([
   {
     name: "test",
     body: "<h1>Welcome to the Test</h1><p>This is a test scribble for the test cases using <strong>Action Text</strong>.</p>",
-    locked: false
+    locked: false,
+    deleteTime: "7"
   },
   {
     name: "test1",
     body: "This is a plain test scribble. Action Text converts this to HTML automatically.",
-    locked: false
+    locked: false,
+    deleteTime: "7"
   },
   {
     name: "test2",
     body: "<p>This is the <em>second</em> test scribble.</p>",
-    locked: false
+    locked: false,
+    deleteTime: "3"
   },
   {
     name: "gameofthrones",
     body: "<blockquote>When you play the game of thrones, you win or you die.</blockquote>",
     locked: true,
-    password: "winteriscoming"
+    password: "winteriscoming",
+    deleteTime: "1"
+  },
+  {
+    name: "this_is_another_test",
+    body: "Now, something for the body...",
+    password: "123qwerty"
   }
 ])
 

@@ -34,6 +34,6 @@ class ScribblesController < ApplicationController
   private
 
   def scribble_params
-    params.require(:scribble).permit(:name, :body, :password)
+    params.require(:scribble).permit(:name, :body, :password, :deleteTime)
   end
 end

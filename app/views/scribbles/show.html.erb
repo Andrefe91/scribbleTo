@@ -5,4 +5,5 @@
 
 <div data-controller="timezone">
     <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
+    <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
 </div>
