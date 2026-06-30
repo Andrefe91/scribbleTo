@@ -6,6 +6,10 @@ class ScribbleTest < ActiveSupport::TestCase
   end
 
   # --- Test 1: Normalization (.parameterize / .gsub logic) ---
+  test "Should normalize with the class method" do
+  assert_equal "my-cool-scribble", Scribble.normalizeName("  My Cool Scribble!!! ")
+  end
+
   test "should normalize name by converting to lowercase and replacing spaces/special chars with hyphens" do
     scribble = build_scribble("My Awesome Scribble #1!")
 

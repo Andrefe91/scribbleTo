@@ -1,6 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 test:
-  name: testScribble
+  name: testscribble
   locked: false
   deleteTime: 1
+
+testProtected:
+  name: secret-notes
+  locked: true
+  deleteTime: 1
+  password_digest: "<%= BCrypt::Password.create('password123') %>"

@@ -3,6 +3,13 @@ module Naming
   # We dont want anyone to be able to create a scribble with a reserved name, so we will not allow these words to be used as names for scribbles
   RESERVED_WORDS = %w[admin assets api about contact help support login logout signup settings].freeze
 
+  class_methods do
+    def normalizeName(string)
+      return string if string.blank?
+      string.to_s.downcase.strip.gsub(/\s+/, "-").gsub(/[^a-z0-9\- _+.~]/, "")
+    end
+  end
+
   included do
     before_validation :normalize_name
 
@@ -23,6 +30,6 @@ module Naming
   def normalize_name
     return if name.blank?
 
-    self.name = name.to_s.downcase.strip.gsub(/\s+/, "-").gsub(/[^a-z0-9\- _+.~]/, "")
+    self.name = self.class.normalizeName(name)
   end
 end

@@ -20,9 +20,14 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "/:name", to: "scribbles#show", as: "scribble"
-  resources :scribbles, only: [ :new, :create ], param: :name do
+  resources :scribbles, only: [ :new, :create, :update ], param: :name do
     collection do
-      get :check_uniqueness
+      get :check_uniqueness # GET /scribbles/check_uniqueness
+    end
+
+    member do
+      get :check_password    # GET /scribbles/:name/check_password
+      post :verify_password  # POST /scribbles/:name/verify_password
     end
   end
 end
