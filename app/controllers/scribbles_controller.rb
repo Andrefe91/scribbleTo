@@ -10,8 +10,10 @@ class ScribblesController < ApplicationController
       redirect_to scribble_path(params[:name]), alert: "That scribble already exists!" and return
     end
 
-    @scribble = Scribble.new
-    @scribble.name = params[:name]
+    @scribble = Scribble.new(name: params[:name])
+
+    #This triggers the name normalization when the Scribble name is written on the URL
+    @scribble.valid?
   end
 
   def create
@@ -34,6 +36,6 @@ class ScribblesController < ApplicationController
   private
 
   def scribble_params
-    params.require(:scribble).permit(:name, :body, :password, :deleteTime)
+    params.require(:scribble).permit(:name, :body, :locked, :password, :deleteTime)
   end
 end

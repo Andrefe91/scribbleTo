@@ -1,4 +1,4 @@
-<div data-controller="uniqueness-validation">
+<div data-controller="uniqueness-validation check-locked-scribble">
     <%= form_with model: @scribble do |form|  %>
         <div class="flex flex-col">
             <div>
@@ -16,10 +16,11 @@
 
             <div>
                 <div class="flex">
-                    <%= form.checkbox :passwordCheck %>
-                    <%= form.label :passwordCheck, "Add a Password" %>
+                    <%= form.checkbox :locked, data: {check_locked_scribble_target: "passwordCheck",
+                    action: "click->check-locked-scribble#switchPasswordField"} %>
+                    <%= form.label :locked, "Add a Password" %>
 
-                    <%= form.password_field :password, class: "mt-1 block rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm" %>
+                    <%= form.password_field :password, data: {check_locked_scribble_target: "passwordField"}, class: "mt-1 block rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"%>
                 </div>
 
                 <div class="flex">

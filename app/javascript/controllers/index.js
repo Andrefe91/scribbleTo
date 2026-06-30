@@ -7,6 +7,9 @@ import { application } from "./application"
 import BlockTrixUploadsController from "./block_trix_uploads_controller"
 application.register("block-trix-uploads", BlockTrixUploadsController)
 
+import CheckLockedScribbleController from "./check_locked_scribble_controller"
+application.register("check-locked-scribble", CheckLockedScribbleController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
