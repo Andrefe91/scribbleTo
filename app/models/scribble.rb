@@ -1,6 +1,6 @@
 class Scribble < ApplicationRecord
   include Naming
-  
+
   before_validation :convert_delete_time_to_integer
 
   has_rich_text :body

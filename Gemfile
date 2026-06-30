@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "rack-attack", "~> 6.8"
+
+gem "rubocop", "~> 1.88"

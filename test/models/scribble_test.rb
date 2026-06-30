@@ -15,7 +15,7 @@ class ScribbleTest < ActiveSupport::TestCase
 
   # --- Test 2: Valid Character Whitelist ---
   test "should be valid with alphanumeric characters and hyphens" do
-    valid_names = ["valid-name", "name123", "123-456", "asd"]
+    valid_names = [ "valid-name", "name123", "123-456", "asd" ]
 
     valid_names.each do |valid_name|
       scribble = build_scribble(valid_name)

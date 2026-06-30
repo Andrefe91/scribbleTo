@@ -23,7 +23,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
       post scribbles_url, params: {
         scribble: {
           body: "My Brand New Scribble",
-          name: "Cool New Title!", # The concern will normalize this to "cool-new-title"
+          name: "Cool New Title!" # The concern will normalize this to "cool-new-title"
         }
       }
     end

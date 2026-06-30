@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  #Needed to ensure thread safety when using Time.zone
+  # Needed to ensure thread safety when using Time.zone
   def set_time_zone(&block)
     time_zone = cookies[:user_time_zone] || Time.zone.name
     Time.use_zone(time_zone, &block)

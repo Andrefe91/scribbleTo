@@ -5,14 +5,13 @@ class ScribblesController < ApplicationController
   end
 
   def new
-
     if params[:name].present? && Scribble.exists?(name: params[:name])
       redirect_to scribble_path(params[:name]), alert: "That scribble already exists!" and return
     end
 
     @scribble = Scribble.new(name: params[:name])
 
-    #This triggers the name normalization when the Scribble name is written on the URL
+    # This triggers the name normalization when the Scribble name is written on the URL
     @scribble.valid?
   end
 
@@ -28,7 +27,7 @@ class ScribblesController < ApplicationController
   end
 
   def check_uniqueness
-    exists = Scribble.exists?(["LOWER(name) = ?", params[:name].to_s.downcase])
+    exists = Scribble.exists?([ "LOWER(name) = ?", params[:name].to_s.downcase ])
 
     render json: { unique: !exists }
   end
