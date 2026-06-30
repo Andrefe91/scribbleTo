@@ -15,9 +15,6 @@ class ScribblesController < ApplicationController
     end
 
     @scribble = Scribble.new(name: params[:name])
-
-    # This triggers the name normalization when the Scribble name is written on the URL
-    @scribble.valid?
   end
 
   def create
@@ -25,6 +22,7 @@ class ScribblesController < ApplicationController
     @scribble = Scribble.new(scribble_params)
 
     if @scribble.save
+      session[:unlocked_scribbles] << @scribble.name
       redirect_to scribble_path(@scribble), notice: "Scribble was successfully created!"
     else
       render :new, status: :unprocessable_entity
@@ -60,6 +58,6 @@ class ScribblesController < ApplicationController
     normalized_name = Scribble.normalizeName(params[:name])
     @scribble = Scribble.find_by!(name: normalized_name)
   rescue ActiveRecord::RecordNotFound
-    redirect_to new_scribble_path(name: params[:name]), alert: "Item not found" and return
+    redirect_to new_scribble_path(name: Scribble.normalizeName(params[:name])), alert: "Item not found" and return
   end
 end
