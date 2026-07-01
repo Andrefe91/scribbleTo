@@ -1,4 +1,5 @@
 class ScribblesController < ApplicationController
+  before_action :initialize_session
   before_action :set_scribble, only: [ :show, :check_password, :verify_password ]
 
   def show
@@ -39,7 +40,6 @@ class ScribblesController < ApplicationController
 
   def verify_password
     if @scribble.authenticate(params[:password])
-      session[:unlocked_scribbles] ||= []
       session[:unlocked_scribbles] << @scribble.name
 
       redirect_to scribble_path(@scribble.name), notice: "Access Granted!"
@@ -49,6 +49,10 @@ class ScribblesController < ApplicationController
   end
 
   private
+
+  def initialize_session
+    session[:unlocked_scribbles] ||= []
+  end
 
   def scribble_params
     params.require(:scribble).permit(:name, :body, :locked, :password, :deleteTime)
