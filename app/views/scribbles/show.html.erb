@@ -6,6 +6,8 @@
                 <%= form.rich_textarea :body %>
             </div>
         </div>
+
+        <%= button_to "Update Scribble", scribble_path(@scribble), method: :patch, class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
     <% end %>
 
     <div data-controller="timezone" class="flex flex-col items-center gap-3 text-center">

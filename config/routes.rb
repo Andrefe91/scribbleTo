@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "/:name", to: "scribbles#show", as: "scribble"
-  resources :scribbles, only: [ :new, :create, :update ], param: :name do
+  patch "/:name", to: "scribbles#update", as: "update_scribble"
+
+  resources :scribbles, only: [ :new, :create ], param: :name do
     collection do
       get :check_uniqueness # GET /scribbles/check_uniqueness
     end

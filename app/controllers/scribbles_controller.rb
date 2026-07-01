@@ -1,6 +1,6 @@
 class ScribblesController < ApplicationController
   before_action :initialize_session
-  before_action :set_scribble, only: [ :show, :check_password, :verify_password ]
+  before_action :set_scribble, only: [ :show, :update, :check_password, :verify_password ]
 
   def show
     unlocked_list = session[:unlocked_scribbles] || []
@@ -27,6 +27,14 @@ class ScribblesController < ApplicationController
       redirect_to scribble_path(@scribble), notice: "Scribble was successfully created!"
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @scribble.update(scribble_params)
+      redirect_to scribble_path(@scribble), notice: "Scribble was successfully updated!"
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
