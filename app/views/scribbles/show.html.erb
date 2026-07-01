@@ -1,9 +1,18 @@
-<div>
-    <h2 class="scribbleName">Scribble name: <%= @scribble.name %></h2>
-    <p>Scribble body: <%= @scribble.body %></p>
+<div class="flex min-h-screen flex-col items-center justify-center">
+    <%= form_with model: @scribble, html: { autocomplete: "off" } do |form| %>
+        <div class="">
+            <h2 class="scribbleName">Scribble name: <%= @scribble.name %></h2>
+            <div>
+                <%= form.rich_textarea :body %>
+            </div>
+        </div>
+    <% end %>
+
+    <div data-controller="timezone" class="flex flex-col items-center gap-3 text-center">
+        <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
+        <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
+        <%= link_to "Back Home", root_path, class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
+    </div>
 </div>
 
-<div data-controller="timezone">
-    <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
-    <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
-</div>
+
