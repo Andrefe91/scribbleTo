@@ -2,12 +2,10 @@ class ScribblesController < ApplicationController
   before_action :initialize_session
   before_action :set_scribble, only: [ :show, :update, :check_password, :verify_password ]
 
-  def show
-    unlocked_list = session[:unlocked_scribbles] || []
+  # Security of the Scribble Show and Update Actions
+  before_action :ensure_scribble_is_unlocked, only: [ :show, :update ]
 
-    if @scribble.password_digest.present? && unlocked_list.exclude?(@scribble.name)
-      redirect_to check_password_scribble_path(@scribble.name) and return
-    end
+  def show
   end
 
   def new
@@ -34,6 +32,7 @@ class ScribblesController < ApplicationController
     if @scribble.update(scribble_params)
       redirect_to scribble_path(@scribble), notice: "Scribble was successfully updated!"
     else
+      @scribble.restore_attributes([ :name ])
       render :show, status: :unprocessable_entity
     end
   end
@@ -57,6 +56,14 @@ class ScribblesController < ApplicationController
   end
 
   private
+
+  def ensure_scribble_is_unlocked
+    unlocked_list = session[:unlocked_scribbles] || []
+
+    if @scribble.password_digest.present? && unlocked_list.exclude?(@scribble.name)
+      redirect_to check_password_scribble_path(@scribble.name), alert: "This scribble is locked." and return
+    end
+  end
 
   def initialize_session
     session[:unlocked_scribbles] ||= []

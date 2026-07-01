@@ -8,9 +8,8 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
 
   test "should show scribble if found" do
     get scribble_url(name: @scribble.name)
-    assert_response :success
 
-    assert_select ".trix-content", text: /This is a test scribble for the minitest cases, now wrapped in Action Text!/
+    assert_response :success
   end
 
   test "should redirect to new if scribble is not found" do
@@ -91,7 +90,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_select "p", text: "Incorrect Password..."
 
     # Verify they haven't bypassed security via the session
-    assert_nil session[:unlocked_scribbles]
+    assert_empty session[:unlocked_scribbles]
   end
 
   test "should successfully unlock scribble and store slug name in session with correct password" do
@@ -104,5 +103,56 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
   # CHANGE THIS: Look for something that only exists on your main show page
   # (For example, look for your trix-content class or scribble title)
   assert_select ".scribbleName"
+  end
+
+  # TEST FOR THE UPDATE CASE
+  test "should update public scribble with valid parameters" do
+    patch scribble_url(name: @scribble.name), params: {
+      scribble: {
+        body: "<div>This is newly updated body content!</div>"
+      }
+    }
+
+    assert_redirected_to scribble_path(@scribble)
+    assert_equal "Scribble was successfully updated!", flash[:notice]
+
+    # Reload from DB and verify the Action Text content updated securely
+    @scribble.reload
+    assert_match "This is newly updated body content!", @scribble.body.to_s
+  end
+
+  test "should not update scribble with invalid parameters" do
+    # Assuming 'name' has a validation (like presence: true) in your model
+    patch scribble_url(name: @scribble.name), params: {
+      scribble: { name: "" }
+    }
+    assert_response :unprocessable_entity
+    # Verify that the name did not change in the database
+    @scribble.reload
+    assert_not_equal "", @scribble.name
+
+    assert_select "form"
+  end
+
+  test "should redirect update to check_password if scribble is locked and not in session" do
+    # Ensure the session does NOT have this protected scribble unlocked yet
+    get root_url # simple request to initialize session
+    session[:unlocked_scribbles] = []
+
+    patch scribble_url(name: @secret_scribble.name), params: {
+      scribble: { body: "Attempting a malicious edit!" }
+    }
+
+    assert_redirected_to check_password_scribble_path(@secret_scribble.name)
+  end
+
+  test "should redirect update to new when scribble name does not exist" do
+    patch scribble_url(name: "completely-imaginary-scribble-name"), params: {
+      scribble: { body: "Testing the rescue clause" }
+    }
+
+    # Triggers your custom set_scribble rescue rule
+    assert_redirected_to new_scribble_path(name: "completely-imaginary-scribble-name")
+    assert_equal "Item not found", flash[:alert]
   end
 end

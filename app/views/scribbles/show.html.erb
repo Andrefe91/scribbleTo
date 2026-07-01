@@ -1,13 +1,22 @@
 <div class="flex min-h-screen flex-col items-center justify-center">
     <%= form_with model: @scribble, html: { autocomplete: "off" } do |form| %>
-        <div class="">
-            <h2 class="scribbleName">Scribble name: <%= @scribble.name %></h2>
-            <div>
-                <%= form.rich_textarea :body %>
-            </div>
-        </div>
 
-        <%= button_to "Update Scribble", scribble_path(@scribble), method: :patch, class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
+        <%# This controller help to dirty track changes to the Scribble Body %>
+        <div data-controller="scribble-compare"
+            data-scribble-compare-original-body-value= "<%= strip_tags(@scribble.body.to_s).strip %>"
+            data-scribble-compare-enabled-class="<%= scribble_button_enabled_classes %>"
+            data-scribble-compare-disabled-class="<%= scribble_button_disabled_classes %>">
+            <h2 class="scribbleName">Scribble name: <%= @scribble.name %></h2>
+            <div >
+                <%= form.rich_textarea :body, data: { action: "input->scribble-compare#checkChanges" } %>
+                <p data-scribble-compare-target="status"></p>
+            </div>
+            <%= button_to "Update Scribble", scribble_path(@scribble),
+            method: :patch,
+            disabled: true,
+            data: { scribble_compare_target: "submitButton" },
+            class: "font-semibold py-2 px-4 border rounded transition-all duration-300 ease-in-out" %>
+        </div>
     <% end %>
 
     <div data-controller="timezone" class="flex flex-col items-center gap-3 text-center">

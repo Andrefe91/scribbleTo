@@ -13,6 +13,9 @@ application.register("check-locked-scribble", CheckLockedScribbleController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ScribbleCompareController from "./scribble_compare_controller"
+application.register("scribble-compare", ScribbleCompareController)
+
 import TimezoneController from "./timezone_controller"
 application.register("timezone", TimezoneController)
 
