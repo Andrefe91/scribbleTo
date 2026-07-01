@@ -33,7 +33,10 @@
                 <%= form.rich_textarea :body %>
             </div>
 
-            <%= form.submit "Save!", data: {uniqueness_validation_target: "submitButton"}, class: "cursor-pointer"  %>
+            <div>
+                <%= form.submit "Save!", data: {uniqueness_validation_target: "submitButton"}, class: "#{scribble_button_enabled_classes} font-semibold py-2 px-4 border rounded"  %>
+            </div>
+
         </div>
 
     <% end %>
