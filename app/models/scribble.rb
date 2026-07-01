@@ -6,6 +6,7 @@ class Scribble < ApplicationRecord
   has_rich_text :body
   has_secure_password validations: false
 
+
   validates :name, presence: true
   validates :name, uniqueness: { message: "This Scribble has already been taken, please choose another one!" }
   validates :body, :deleteTime, presence: true

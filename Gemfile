@@ -72,3 +72,5 @@ gem "rack-attack", "~> 6.8"
 gem "rubocop", "~> 1.88"
 
 gem "erb-formatter", "~> 0.7.3"
+
+gem "paper_trail", "~> 17.0"

@@ -1,11 +1,25 @@
 class ScribblesController < ApplicationController
   before_action :initialize_session
   before_action :set_scribble, only: [ :show, :update, :check_password, :verify_password ]
+  before_action :set_paper_trail_whodunnit
 
   # Security of the Scribble Show and Update Actions
   before_action :ensure_scribble_is_unlocked, only: [ :show, :update ]
 
   def show
+    # Fetch the version history specifically for this scribble's rich text body
+    @body_versions = @scribble.body&.versions || []
+
+    # If the user clicks a historical version link, load that specific snapshot
+    if params[:version_id].present?
+      version = @scribble.body.versions.find_by(id: params[:version_id])
+
+      if version
+        @historical_rich_text = version.reify
+      else
+      redirect_to scribble_path(@scribble), alert: "Version not found." and return
+      end
+    end
   end
 
   def new
