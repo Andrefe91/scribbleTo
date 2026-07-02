@@ -1,5 +1,5 @@
 <div data-controller="uniqueness-validation check-locked-scribble">
-    <%= form_with model: @scribble do |form|  %>
+    <%= form_with model: @scribble, data: { turbo_frame: "_top" } do |form|  %>
         <div class="flex flex-col">
             <div>
                 <%= form.label :name %>
@@ -36,6 +36,8 @@
             <div>
                 <%= form.submit "Save!", data: {uniqueness_validation_target: "submitButton"},
                 class: "#{scribble_button_enabled_classes} font-semibold py-2 px-4 border rounded"  %>
+                <%= link_to "Cancel", root_path,data: { turbo_frame: "_top" }, class: "#{scribble_button_enabled_classes} font-semibold py-2 px-4 border rounded" %>
+
             </div>
 
         </div>

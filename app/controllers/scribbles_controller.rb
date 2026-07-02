@@ -36,7 +36,7 @@ class ScribblesController < ApplicationController
 
     if @scribble.save
       session[:unlocked_scribbles] << @scribble.name
-      redirect_to scribble_path(@scribble), notice: "Scribble was successfully created!"
+      redirect_to scribble_path(@scribble), notice: "Scribble was successfully created!", status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
