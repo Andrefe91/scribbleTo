@@ -56,12 +56,21 @@
                         <p data-scribble-compare-target="status" class="text-sm mt-1"></p>
                     </div>
 
-                    <%= form.submit "Update Scribble",
-                        disabled: true,
-                        data: { scribble_compare_target: "submitButton" },
-                        class: "#{scribble_button_disabled_classes} font-semibold py-2 px-4 border rounded transition-all duration-300 ease-in-out cursor-not-allowed" %>
+                    <div>
+                        <%= form.submit "Update Scribble",
+                            disabled: true,
+                            data: { scribble_compare_target: "submitButton" },
+                            class: "#{scribble_button_disabled_classes} font-semibold py-2 px-4 border rounded transition-all duration-300 ease-in-out cursor-not-allowed" %>
+
+                    </div>
                 </div>
             <% end %>
+        <% end %>
+        <% if @scribble.locked %>
+            <%= button_to "Lock Now",
+                clear_session_scribble_path,
+                method: :delete,
+                class: "#{scribble_button_enabled_classes}" %>
         <% end %>
 
         <div data-controller="timezone" class="flex flex-col items-center gap-3 text-center mt-8 pt-6 border-t border-gray-200 w-full text-gray-600">

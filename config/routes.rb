@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     member do
       get :check_password    # GET /scribbles/:name/check_password
       post :verify_password  # POST /scribbles/:name/verify_password
+      delete "clear_session", to: "scribbles#clear_scribble_session" # DELETE /scribbles/:name/clear_scribble_session
     end
   end
 end

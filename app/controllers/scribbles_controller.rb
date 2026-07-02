@@ -69,6 +69,13 @@ class ScribblesController < ApplicationController
     end
   end
 
+  def clear_scribble_session
+    session[:unlocked_scribbles]&.delete(params[:name])
+    session[:unlocked_scribbles] = session[:unlocked_scribbles]
+
+    redirect_to root_path, notice: "Scribble Locked!"
+  end
+
   private
 
   def ensure_scribble_is_unlocked
