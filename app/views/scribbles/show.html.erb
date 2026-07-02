@@ -41,7 +41,7 @@
 
                     <div style="display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; white-space: nowrap; max-width: 100%;">
 
-                        <span class="versionInfo">Ver. <%= @scribble.body.versions.size + 1 %> (Current)</span>
+                        <span class="versionInfo">Ver. <%= @scribble.body.versions.size %> (Current)</span>
 
                         <button type="button" onclick="document.getElementById('version-modal').showModal()" style="display: inline-flex; align-items: center; justify-content: center; padding: 4px; cursor: pointer; background: transparent; border: none; flex-shrink: 0;">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -95,12 +95,15 @@
         </li>
 
         <% @body_versions.reverse_each.with_index do |version, index| %>
-            <li>
-            <%= link_to scribble_path(@scribble, version_id: version.id) do %>
-                Version #<%= @body_versions.size - index %>
-                (<%= version.created_at.to_fs(:short) %>)
+
+            <% unless version.event == "create" %>
+                <li>
+                <%= link_to scribble_path(@scribble, version_id: version.id) do %>
+                    Version #<%= @body_versions.size - (index+1) %>
+                    (<%= version.created_at.to_fs(:short) %>)
+                <% end %>
+                </li>
             <% end %>
-            </li>
         <% end %>
         </ul>
     <% else %>
