@@ -2,6 +2,7 @@ class Scribble < ApplicationRecord
   include Naming
 
   before_validation :convert_delete_time_to_integer
+  after_create :schedule_autmatic_deletion
 
   has_rich_text :body
   has_secure_password validations: false
@@ -21,6 +22,12 @@ class Scribble < ApplicationRecord
             if: :password_digest_changed?
 
   private
+
+  def schedule_autmatic_deletion
+    expires_at = Time.current + deleteTime.days
+
+    DeleteScribbleJob.set(wait_until: expires_at).perform_later(name)
+  end
 
   def body_cannot_contain_attachments
     # Check the actual raw HTML code string for any attachment tags
