@@ -41,7 +41,7 @@
 
                     <div style="display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; white-space: nowrap; max-width: 100%;">
 
-                        <span>Ver. <%= @scribble.body.versions.size + 1 %> (Current)</span>
+                        <span class="versionInfo">Ver. <%= @scribble.body.versions.size + 1 %> (Current)</span>
 
                         <button type="button" onclick="document.getElementById('version-modal').showModal()" style="display: inline-flex; align-items: center; justify-content: center; padding: 4px; cursor: pointer; background: transparent; border: none; flex-shrink: 0;">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -79,7 +79,7 @@
         <button onclick="document.getElementById('version-modal').close()">✕</button>
     </div>
 
-    <% if @body_versions.any? %>
+    <% if @body_versions&.any? %>
         <ul>
         <li>
             <%= link_to "Current Version (Latest)", scribble_path(@scribble) %>

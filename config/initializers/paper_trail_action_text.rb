@@ -8,7 +8,8 @@ Rails.application.config.to_prepare do
     # Because we cant associate the PaperTrail twice or more, we query the model to check if it already has the
     # association before adding it again. This prevents errors when the code reloads in Development mode.
     unless reflect_on_association(:versions)
-      has_paper_trail only: [ :body ], limit: 15
+      # Limit: 15 versions per record (14 most recent, plus a `create` event)
+      has_paper_trail only: [ :body ], limit: 14
     end
   end
 end

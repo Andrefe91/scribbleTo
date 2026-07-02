@@ -4,6 +4,20 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
   setup do
     @scribble = scribbles(:test)
     @secret_scribble = scribbles(:testProtected)
+
+    @scribblePaperOne = scribbles(:paperTrailOne)
+    @scribblePaperTwo = scribbles(:paperTrailTwo)
+
+    # Initialize the rich text bodies (this creates their "Current Version")
+    @scribblePaperOne.update!(body: "Live Body One")
+    @scribblePaperTwo.update!(body: "Private Live Body")
+
+    # Perform an update to force PaperTrail to generate an older historical version
+    @scribblePaperOne.update!(body: "Archived Version of One")
+    @version_one = @scribblePaperOne.body.versions.last
+
+    @scribblePaperTwo.update!(body: "Archived Secret Version")
+    @version_two = @scribblePaperTwo.body.versions.last
   end
 
   test "should show scribble if found" do
@@ -154,5 +168,28 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     # Triggers your custom set_scribble rescue rule
     assert_redirected_to new_scribble_path(name: "completely-imaginary-scribble-name")
     assert_equal "Item not found", flash[:alert]
+  end
+
+  # Tests for PaperTrail versioning
+  test "should get show view in standard live editable mode" do
+    get scribble_url(@scribblePaperOne)
+    assert_response :success
+
+    assert_select "span.versionInfo", true
+  end
+
+  test "should load snapshot when passing valid version_id parameter" do
+    get scribble_url(@scribblePaperOne, version_id: @version_one.id)
+    assert_response :success
+
+    assert_select "body", /Live Body One/
+  end
+
+  test "security scope: should block looking up version_id belonging to a different scribble" do
+    # Try to sneak scribblePaperTwo's version ID into scribblePaperOne's URL parameter
+    get scribble_url(@scribblePaperOne, version_id: @version_two.id)
+
+    assert_redirected_to scribble_path(@scribblePaperOne)
+    assert_equal "Version not found.", flash[:alert]
   end
 end

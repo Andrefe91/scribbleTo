@@ -10,3 +10,9 @@ testProtected:
   locked: true
   deleteTime: 1
   password_digest: "<%= BCrypt::Password.create('password123') %>"
+
+paperTrailOne:
+  name: "paper trail one"
+
+paperTrailTwo:
+  name: "paper trail two"
