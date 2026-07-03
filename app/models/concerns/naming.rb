@@ -1,7 +1,7 @@
 module Naming
   extend ActiveSupport::Concern
   # We dont want anyone to be able to create a scribble with a reserved name, so we will not allow these words to be used as names for scribbles
-  RESERVED_WORDS = %w[admin assets api about contact help support login logout signup settings].freeze
+  RESERVED_WORDS = %w[admin assets api about contact help support login logout signup settings new].freeze
 
   class_methods do
     def normalizeName(string)
