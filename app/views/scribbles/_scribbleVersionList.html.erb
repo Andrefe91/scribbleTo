@@ -1,0 +1,35 @@
+<dialog id="version-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 p-5 rounded-lg border border-gray-300 w-[90%] max-w-(--size-md) shadow-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0;">Version History</h3>
+        <button onclick="document.getElementById('version-modal').close()">✕</button>
+    </div>
+
+    <% if versions&.any? %>
+        <ul>
+        <li>
+            <%= link_to "Current Version (Latest)", scribble_path(scribble) %>
+        </li>
+
+        <% versions.reverse_each.with_index do |version, index| %>
+
+            <% unless version.event == "create" %>
+                <li>
+                    <%= button_to "Version ##{versions.size - (index+1)} (#{version.created_at.to_fs(:short)})",
+                        fetch_version_scribble_path(scribble.name),
+                            params: { version_id: version.id },
+                            method: :post,
+                            data: { turbo_frame: "scribble_content" },
+                            form: {
+                                #After the version is clicked, close the modal.
+                                onclick: "document.getElementById('version-modal').close();"
+                            },
+                            class: "text-blue-600 hover:underline block text-left" %>
+                </li>
+            <% end %>
+        <% end %>
+        </ul>
+    <% else %>
+        <p>No edits made yet.</p>
+    <% end %>
+</dialog>

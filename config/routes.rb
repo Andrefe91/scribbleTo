@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/new", to: "scribbles#new", as: "new_scribble"
   get "/:name", to: "scribbles#show", as: "scribble"
   patch "/:name", to: "scribbles#update", as: "update_scribble"
+  post "/:name/version", to: "scribbles#show", as: "fetch_version_scribble"
 
   resources :scribbles, only: [ :create ], param: :name do
     collection do

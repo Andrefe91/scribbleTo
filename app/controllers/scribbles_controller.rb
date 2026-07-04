@@ -13,12 +13,7 @@ class ScribblesController < ApplicationController
     # If the user clicks a historical version link, load that specific snapshot
     if params[:version_id].present?
       version = @scribble.body.versions.find_by(id: params[:version_id])
-
-      if version
-        @historical_rich_text = version.reify
-      else
-      redirect_to scribble_path(@scribble), alert: "Version not found." and return
-      end
+      @historical_rich_text = version.reify
     end
   end
 
