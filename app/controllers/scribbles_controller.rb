@@ -1,10 +1,10 @@
 class ScribblesController < ApplicationController
   before_action :initialize_session
-  before_action :set_scribble, only: [ :show, :update, :check_password, :verify_password ]
+  before_action :set_scribble, only: [ :show, :update, :download, :check_password, :verify_password ]
   before_action :set_paper_trail_whodunnit
 
   # Security of the Scribble Show and Update Actions
-  before_action :ensure_scribble_is_unlocked, only: [ :show, :update ]
+  before_action :ensure_scribble_is_unlocked, only: [ :show, :update, :download ]
 
   def show
     # Fetch the version history specifically for this scribble's rich text body
@@ -13,6 +13,7 @@ class ScribblesController < ApplicationController
     # If the user clicks a historical version link, load that specific snapshot
     if params[:version_id].present?
       version = @scribble.body.versions.find_by(id: params[:version_id])
+      @normalizedVersion = params[:normalizedVersion] # Mostly so the views and download name files can use it
       @historical_rich_text = version.reify
     end
   end
@@ -44,6 +45,26 @@ class ScribblesController < ApplicationController
       @scribble.restore_attributes([ :name ])
       render :show, status: :unprocessable_entity
     end
+  end
+
+  def download
+    if params[:version_id].present?
+    version = @scribble.body.versions.find_by(id: params[:version_id])
+      if version
+        content = version.reify.body.to_plain_text
+        filename = "#{@scribble.name}_v#{params[:normalizedVersion]}.txt"
+      else
+        redirect_to scribble_path(@scribble), alert: "Version not found." and return
+      end
+    else
+      content = @scribble.body.to_plain_text
+      filename = "#{@scribble.name}_current.txt"
+    end
+
+    send_data content,
+      filename: filename,
+      type: "text/plain",
+      disposition: "attachment"
   end
 
   def check_uniqueness

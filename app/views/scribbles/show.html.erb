@@ -10,19 +10,29 @@
                 <div class="w-full bg-yellow-50 border border-yellow-200 rounded p-6 shadow-sm mb-4">
                     <div class="flex items-center justify-between border-b border-yellow-200 pb-3 mb-4">
                         <h2 class="scribbleName font-bold text-xl text-yellow-800">
-                            Viewing Past Version of: <%= @scribble.name %>
+                            Viewing Past Version # <%= @normalizedVersion %>: <%= @scribble.name %>
                         </h2>
 
                         <div class="flex">
                             <%= link_to "Return to Current", scribble_path(@scribble),
                                     class: "text-sm bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-1 px-3 rounded shadow transition-all" %>
 
-                            <button type="button" onclick="document.getElementById('version-modal').showModal()" style="display: inline-flex; align-items: center; justify-content: center; padding: 4px; cursor: pointer; background: transparent; border: none; flex-shrink: 0;">
+                            <button type="button" onclick="document.getElementById('version-modal').showModal()" class=  "<%= circle_btn_classes %>">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                                 <title>Go Back in Time</title>
                                 <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
                                 </svg>
                             </button>
+
+                            <%= link_to download_scribble_path(@scribble.name, version_id: params[:version_id], normalizedVersion: @normalizedVersion),
+                                title: "Download current version as .txt",
+                                class: circle_btn_classes,
+                                data: { turbo: false } do %>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+                                    <title>Download this version</title>
+                                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                                    </svg>
+                            <% end %>
                         </div>
                     </div>
 
@@ -47,12 +57,22 @@
 
                             <span class="versionInfo">Ver. <%= @scribble.body.versions.size %> (Current)</span>
 
-                            <button type="button" onclick="document.getElementById('version-modal').showModal()" style="display: inline-flex; align-items: center; justify-content: center; padding: 4px; cursor: pointer; background: transparent; border: none; flex-shrink: 0;">
+                            <button type="button" onclick="document.getElementById('version-modal').showModal()" class=  "<%= circle_btn_classes %>">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <title>Go Back in Time</title>
                             <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
                             </svg>
                             </button>
+
+                            <%= link_to download_scribble_path(@scribble.name),
+                                title: "Download current version as .txt",
+                                class: circle_btn_classes,
+                                data: { turbo: false } do %>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+                                    <title>Download this version</title>
+                                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                                    </svg>
+                            <% end %>
                         </div>
 
                         <div class="mb-4">

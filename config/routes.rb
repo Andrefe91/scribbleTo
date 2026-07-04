@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get "/new", to: "scribbles#new", as: "new_scribble"
   get "/:name", to: "scribbles#show", as: "scribble"
+  get "/:name/download", to: "scribbles#download", as: "download_scribble"
   patch "/:name", to: "scribbles#update", as: "update_scribble"
   post "/:name/version", to: "scribbles#show", as: "fetch_version_scribble"
 

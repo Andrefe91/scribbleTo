@@ -17,7 +17,7 @@
                 <li>
                     <%= button_to "Version ##{versions.size - (index+1)} (#{version.created_at.to_fs(:short)})",
                         fetch_version_scribble_path(scribble.name),
-                            params: { version_id: version.id },
+                            params: { version_id: version.id, normalizedVersion: (versions.size - (index+1)) },
                             method: :post,
                             data: { turbo_frame: "scribble_content" },
                             form: {
