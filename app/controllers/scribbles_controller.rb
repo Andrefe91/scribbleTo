@@ -13,6 +13,11 @@ class ScribblesController < ApplicationController
     # If the user clicks a historical version link, load that specific snapshot
     if params[:version_id].present?
       version = @scribble.body.versions.find_by(id: params[:version_id])
+
+      if version.blank?
+        redirect_to scribble_path(params[:name]), alert: "Version not found." and return
+      end
+
       @normalizedVersion = params[:normalizedVersion] # Mostly so the views and download name files can use it
       @historical_rich_text = version.reify
     end
@@ -52,7 +57,7 @@ class ScribblesController < ApplicationController
     version = @scribble.body.versions.find_by(id: params[:version_id])
       if version
         content = version.reify.body.to_plain_text
-        filename = "#{@scribble.name}_v#{params[:normalizedVersion]}.txt"
+        filename = "#{@scribble.name}_v##{params[:normalizedVersion]}.txt"
       else
         redirect_to scribble_path(@scribble), alert: "Version not found." and return
       end

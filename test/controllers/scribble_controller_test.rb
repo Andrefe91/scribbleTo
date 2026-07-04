@@ -8,6 +8,11 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     @scribblePaperOne = scribbles(:paperTrailOne)
     @scribblePaperTwo = scribbles(:paperTrailTwo)
 
+    #Modify the first scribble with update actions
+    @scribble.update!(body: "This is the current live text.")
+    @scribble.update!(body: "This is version two text.")
+    @scribble.update!(body: "This is the ultimate third version text.")
+
     # Initialize the rich text bodies (this creates their "Current Version")
     @scribblePaperOne.update!(body: "Live Body One")
     @scribblePaperTwo.update!(body: "Private Live Body")
@@ -192,4 +197,43 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to scribble_path(@scribblePaperOne)
     assert_equal "Version not found.", flash[:alert]
   end
+
+  # Test for the download version options
+  test "should download current scribble version as plain text" do
+    get download_scribble_url(@scribble.name)
+
+    assert_response :success
+
+    # 1. Verify it sends the right header content types
+    assert_equal "text/plain", response.media_type
+    assert_equal "attachment; filename=\"#{@scribble.name}_current.txt\"; filename*=UTF-8''#{@scribble.name}_current.txt", response.headers["Content-Disposition"]
+
+    # 2. Verify the raw file content matches our current plain text
+    assert_equal "This is the ultimate third version text.", response.body.strip
+  end
+
+  test "should download historical scribble version when version_id is provided" do
+    # Grab the very first version recorded in your version array
+    first_version = @scribble.body.versions.second
+
+    get download_scribble_url(@scribble.name, params: { version_id: first_version.id, normalizedVersion: 1 })
+
+    assert_response :success
+    assert_equal "text/plain", response.media_type
+    assert_equal "attachment; filename=\"#{@scribble.name}_v#1.txt\"; filename*=UTF-8''#{@scribble.name}_v#1.txt", response.headers["Content-Disposition"]
+
+    # Verify it accurately recovered the past version content string
+    assert_equal "This is the current live text.", response.body.strip
+  end
+
+  test "should redirect and alert if historical version does not exist" do
+    invalid_version_id = 999999
+
+    get download_scribble_url(@scribble.name, params: { version_id: invalid_version_id })
+
+    # Verify it doesn't stream a file, but instead sends them away
+    assert_redirected_to scribble_path(@scribble)
+    assert_equal "Version not found.", flash[:alert]
+  end
+
 end
