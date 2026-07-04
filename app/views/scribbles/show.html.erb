@@ -3,6 +3,7 @@
     <div class="flex flex-col items-center justify-center flex-1 w-full">
 
         <%= turbo_frame_tag "scribble_content" do %>
+            <%= render "layouts/flash" %>
             <%= render "scribbleVersionList", versions: @body_versions, scribble: @scribble %>
 
             <% if params[:version_id].present? && @historical_rich_text %>
