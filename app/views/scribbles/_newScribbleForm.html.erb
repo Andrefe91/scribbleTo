@@ -1,10 +1,10 @@
 <div data-controller="uniqueness-validation check-locked-scribble" class="w-full text-left">
   <%= form_with model: @scribble, data: { turbo_frame: "_top" }, class: "w-full" do |form| %>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
 
       <!-- ================= LEFT COLUMN: SETTINGS ================= -->
-      <div class="lg:col-span-5 space-y-6 bg-ui-bg p-6 border border-gray-300 rounded-theme-md shadow-sm">
+      <div class="md:col-span-4 space-y-6 bg-ui-bg p-6 border border-gray-300 rounded-theme-md shadow-sm">
 
         <!-- 1. Scribble Name Input -->
         <div class="space-y-1 relative">
@@ -29,41 +29,52 @@
         </div>
 
         <!-- 2. Delete After (Life) -->
-        <div class="space-y-1">
-          <%= form.label :deleteTime, "Scribble Life", class: "block text-sm font-semibold text-ui-text" %>
-          <%= form.select :deleteTime,
-                [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]],
-                {},
-                { class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-gray-300 rounded-theme-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all cursor-pointer" } %>
+        <div class="space-y-2 pt-2 border-t border-gray-200">
+            <%= form.label :deleteTime, "Scribble Life", class: "block text-sm font-semibold text-ui-text" %>
+
+            <!-- Segmented Radio Button Group -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
+                <% [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]].each do |label, value| %>
+                    <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+
+                    <%= form.radio_button :deleteTime, value,
+                    checked: (value == 7), # Sets 7 Days as the default selected option
+                    class: "sr-only" %>   <!-- Hides the default browser radio circle -->
+
+                    <span><%= label %></span>
+                    </label>
+                    <% end %>
+            </div>
         </div>
 
         <!-- 3. Visibility Setting (Public vs Private) -->
         <div class="space-y-2 pt-2 border-t border-gray-200">
-          <label class="block text-sm font-semibold text-ui-text">Visibility</label>
+            <label class="block text-sm font-semibold text-ui-text">Visibility</label>
 
-          <div class="flex items-center gap-4">
-            <!-- Public Option (Unchecked) -->
-            <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-ui-text">
-              <input type="radio"
-                     name="visibility_toggle"
-                     value="public"
-                     checked
-                     data-action="click->check-locked-scribble#switchPasswordField"
-                     class="text-brand-primary focus:ring-brand-primary h-4 w-4">
-              Public
-            </label>
+            <div class="flex flex-col lg:flex-row gap-2">
+                <!-- Public Option -->
+                <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+                    <%= form.radio_button :locked, false,
+                            checked: !@scribble.locked?,
+                            data: {
+                            action: "click->check-locked-scribble#switchPasswordField"
+                            },
+                            class: "sr-only" %>
+                    <span>Public</span>
+                </label>
 
-            <!-- Private Option (Checked -> Unlocks password input) -->
-            <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-ui-text">
-              <%= form.check_box :locked,
-                    data: {
-                      check_locked_scribble_target: "passwordCheck",
-                      action: "click->check-locked-scribble#switchPasswordField"
-                    },
-                    class: "text-brand-primary focus:ring-brand-primary h-4 w-4 rounded" %>
-              Private
-            </label>
-          </div>
+                <!-- Private Option -->
+                <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+                    <%= form.radio_button :locked, true,
+                            checked: @scribble.locked?,
+                            data: {
+                            check_locked_scribble_target: "passwordCheck",
+                            action: "click->check-locked-scribble#switchPasswordField"
+                            },
+                            class: "sr-only" %>
+                    <span>Private</span>
+                </label>
+            </div>
         </div>
 
         <!-- 4. Create Password (Conditionally toggled by Stimulus) -->
@@ -79,7 +90,7 @@
 
 
       <!-- ================= RIGHT COLUMN: TRIX EDITOR & ACTIONS ================= -->
-      <div class="lg:col-span-7 flex flex-col space-y-6">
+      <div class="md:col-span-8 flex flex-col space-y-6">
 
         <!-- Rich Text Area Container -->
         <div class="space-y-1 w-full max-w-full min-w-0">
