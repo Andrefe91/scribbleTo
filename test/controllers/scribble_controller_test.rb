@@ -235,5 +235,4 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to scribble_path(@scribble)
     assert_equal "Version not found.", flash[:alert]
   end
-
 end

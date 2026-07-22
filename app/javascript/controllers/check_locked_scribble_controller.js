@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="check-locked-scribble"
 export default class extends Controller {
-	static targets = ["passwordCheck", "passwordField"];
+	static targets = ["passwordCheck", "passwordField", "passwordWrapper", "eyeIcon", "eyeOffIcon"];
 
   connect() {
     this.switchPasswordField();
@@ -25,4 +25,20 @@ export default class extends Controller {
 			);
 		}
 	}
+
+	togglePasswordVisibility(event) {
+    event.preventDefault()
+
+    const field = this.passwordFieldTarget
+    const isPassword = field.type === "password"
+
+    // Toggle input type
+    field.type = isPassword ? "text" : "password"
+
+    // Toggle icon visibility
+    if (this.hasEyeIconTarget && this.hasEyeOffIconTarget) {
+      this.eyeIconTarget.classList.toggle("hidden", isPassword)
+      this.eyeOffIconTarget.classList.toggle("hidden", !isPassword)
+    }
+  }
 }
