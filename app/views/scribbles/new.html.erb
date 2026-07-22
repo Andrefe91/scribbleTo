@@ -1,8 +1,20 @@
-<section data-controller="block-trix-uploads" class="bg-sky-100 py-12">
-        <div class="container mx-auto px-4 text-center flex flex-col">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Create a Scribble</h1>
-            <div class="flex justify-center">
-                <%= render "newScribbleForm" %>
-            </div>
-        </div>
+<section data-controller="block-trix-uploads" class="min-h-screen bg-ui-bg flex flex-col justify-between p-6 sm:p-12">
+  <main class="flex-1 container mx-auto max-w-5xl flex flex-col items-center text-center space-y-8">
+
+    <!-- Title Section -->
+    <header class="space-y-2">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-brand-primary tracking-tight">
+        Create a Scribble
+      </h1>
+      <p class="text-lg text-gray-500 font-medium">
+        Set your options and write your content below
+      </p>
+    </header>
+
+    <!-- Form Partial Container -->
+    <div class="w-full">
+      <%= render "newScribbleForm" %>
+    </div>
+
+  </main>
 </section>

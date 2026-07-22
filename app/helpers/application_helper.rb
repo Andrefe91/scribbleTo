@@ -1,4 +1,10 @@
 module ApplicationHelper
+  BUTTON_STYLES = {
+    secondary: "px-5 py-2.5 text-base font-semibold border-2 border-grey-3 text-grey-6 bg-gray-100 hover:bg-grey-2 rounded-theme-md shadow-sm transition-colors cursor-pointer",
+    primary: "px-6 py-2.5 text-base bg-brand-primary text-ui-bg font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+  }.freeze
+
+
   def scribble_button_enabled_classes
     "bg-transparent text-blue-700 border-blue-500 hover:bg-blue-500 " \
     "hover:text-white hover:border-transparent cursor-pointer"
@@ -17,6 +23,10 @@ module ApplicationHelper
     else
       "bg-blue-50 border-blue-200 text-blue-800"
     end
+  end
+
+  def button_classes(variant = :secondary, extra_classes = "")
+    "#{BUTTON_STYLES.fetch(variant, BUTTON_STYLES[:secondary])} #{extra_classes}".strip
   end
 
   def circle_btn_classes(options = {})
