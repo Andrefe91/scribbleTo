@@ -6,7 +6,7 @@ class Rack::Attack
     req.ip
   end
 
-  throttle("uniqueness_check/ip", limit: 10, period: 1.minute) do |req|
+  throttle("uniqueness_check/ip", limit: 50, period: 1.minute) do |req|
     if req.path == "/scribbles/check_uniqueness" && req.get?
       req.ip
     end

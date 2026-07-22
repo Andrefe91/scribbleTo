@@ -19,6 +19,9 @@ application.register("hello", HelloController)
 import ScribbleCompareController from "./scribble_compare_controller"
 application.register("scribble-compare", ScribbleCompareController)
 
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)
+
 import TimezoneController from "./timezone_controller"
 application.register("timezone", TimezoneController)
 

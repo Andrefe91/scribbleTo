@@ -7,4 +7,9 @@
             <%= render "indexForm" %>
         </div>
     </div>
+    <div data-controller="theme">
+        <button data-action="click->theme#switch" data-theme-name="light" class="p-2 border">Light Mode</button>
+        <button data-action="click->theme#switch" data-theme-name="dark" class="p-2 border">Dark Mode</button>
+        <button data-action="click->theme#switch" data-theme-name="retro" class="p-2 border">Retro Mode</button>
+    </div>
 </section>

@@ -20,7 +20,7 @@ export default class extends Controller {
 
 		this.timeout = setTimeout(() => {
 			this.checkUniqueName();
-		}, 500); //500 ms delay to avoid too many requests
+		}, 400); //400 ms delay to avoid too many requests
 	}
 
 	async checkUniqueName(event) {

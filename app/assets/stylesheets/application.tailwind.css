@@ -1,5 +1,119 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    /* --- Primary (Pink - Vivid) --- */
+    --primary-pink-10: 320 100% 19%;
+    --primary-pink-9: 322 93% 27%;
+    --primary-pink-8: 324 93% 33%;
+    --primary-pink-7: 326 90% 39%;
+    --primary-pink-6: 328 85% 46%;
+    --primary-pink-5: 330 79% 56%;
+    --primary-pink-4: 334 86% 67%;
+    --primary-pink-3: 336 100% 77%;
+    --primary-pink-2: 338 100% 86%;
+    --primary-pink-1: 341 100% 95%;
+
+    /* --- Neutrals (Cool Grey) --- */
+    --neutral-grey-10: 210 24% 16%;
+    --neutral-grey-9: 209 20% 25%;
+    --neutral-grey-8: 209 18% 30%;
+    --neutral-grey-7: 209 14% 37%;
+    --neutral-grey-6: 211 12% 43%;
+    --neutral-grey-5: 211 10% 53%;
+    --neutral-grey-4: 211 13% 65%;
+    --neutral-grey-3: 210 16% 82%;
+    --neutral-grey-2: 214 15% 91%;
+    --neutral-grey-1: 216 33% 97%;
+
+    /* --- Supporting: Purple (Vivid) --- */
+    --support-purple-10: 276 91% 23%;
+    --support-purple-9: 274 87% 31%;
+    --support-purple-8: 274 87% 37%;
+    --support-purple-7: 274 87% 43%;
+    --support-purple-6: 273 80% 49%;
+    --support-purple-5: 268 82% 60%;
+    --support-purple-4: 264 96% 70%;
+    --support-purple-3: 262 100% 78%;
+    --support-purple-2: 262 100% 88%;
+    --support-purple-1: 262 90% 96%;
+
+    /* --- Supporting: Cyan (Vivid) --- */
+    --support-cyan-10: 188 91% 23%;
+    --support-cyan-9: 186 91% 29%;
+    --support-cyan-8: 184 90% 34%;
+    --support-cyan-7: 182 85% 39%;
+    --support-cyan-6: 180 77% 47%;
+    --support-cyan-5: 178 78% 57%;
+    --support-cyan-4: 176 87% 67%;
+    --support-cyan-3: 174 96% 78%;
+    --support-cyan-2: 172 97% 88%;
+    --support-cyan-1: 171 82% 94%;
+
+    /* --- Supporting: Red (Vivid) --- */
+    --support-red-10: 348 94% 20%;
+    --support-red-9: 350 94% 28%;
+    --support-red-8: 352 90% 35%;
+    --support-red-7: 354 85% 44%;
+    --support-red-6: 356 75% 53%;
+    --support-red-5: 360 83% 62%;
+    --support-red-4: 360 91% 69%;
+    --support-red-3: 360 100% 80%;
+    --support-red-2: 360 100% 87%;
+    --support-red-1: 360 100% 95%;
+
+    /* --- Supporting: Yellow (Vivid) --- */
+    --support-yellow-10: 15 86% 30%;
+    --support-yellow-9: 22 82% 39%;
+    --support-yellow-8: 29 80% 44%;
+    --support-yellow-7: 36 77% 49%;
+    --support-yellow-6: 42 87% 55%;
+    --support-yellow-5: 44 92% 63%;
+    --support-yellow-4: 48 94% 68%;
+    --support-yellow-3: 48 95% 76%;
+    --support-yellow-2: 48 100% 88%;
+    --support-yellow-1: 49 100% 96%;
+  }
+}
+
+@theme {
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-secondary: var(--color-brand-secondary);
+
+  --color-ui-bg: var(--ui-bg);
+  --color-ui-text: var(--ui-text);
+
+  /* Global Definitions of Variables  */
+  --radius-theme-md: 0.5rem;
+}
+
+@layer base {
+
+  /* Default Light Theme */
+  :root {
+    --color-brand-primary: hsl(var(--primary-pink-500));      /* Blue */
+    --color-brand-secondary: #1d4ed8;
+    --ui-bg: #ffffff;
+    --ui-text: #0f172a;
+  }
+
+  /* Dark Theme */
+  :root[data-theme="dark"], .dark {
+    --color-brand-primary: #60a5fa;      /* Lighter blue for dark mode */
+    --color-brand-secondary: #3b82f6;
+    --ui-bg: #0f172a;
+    --ui-text: #f8fafc;
+  }
+
+  /* Custom "Retro" Accent Theme */
+  :root[data-theme="retro"] {
+    --color-brand-primary: #f59e0b;      /* Amber */
+    --color-brand-secondary: #b45309;
+    --ui-bg: #fef3c7;
+    --ui-text: #78350f;
+  }
+}
+
 trix-toolbar .trix-button-group--file-tools {
   display: none !important;
 }

@@ -119,6 +119,6 @@ class ScribblesController < ApplicationController
     normalized_name = Scribble.normalizeName(params[:name])
     @scribble = Scribble.find_by!(name: normalized_name)
   rescue ActiveRecord::RecordNotFound
-    redirect_to new_scribble_path(name: Scribble.normalizeName(params[:name])), alert: "Item not found" and return
+    redirect_to new_scribble_path(name: Scribble.normalizeName(params[:name])), alert: "Creating new Scribble!" and return
   end
 end
