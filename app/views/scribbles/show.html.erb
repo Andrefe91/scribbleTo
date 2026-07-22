@@ -1,112 +1,129 @@
 <%# Show Page %>
-<div class="flex min-h-screen flex-col md:flex-row items-start justify-center gap-8 p-6 max-w-6xl mx-auto">
+<section class="min-h-screen bg-ui-bg flex flex-col justify-between p-6 sm:p-12">
+  <main class="flex-1 container mx-auto max-w-4xl flex flex-col items-center text-center space-y-8">
 
-    <div class="flex flex-col items-center justify-center flex-1 w-full">
+    <!-- Title Section -->
+    <header class="space-y-2">
+      <h1 class="scribbleName text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-primary tracking-tight">
+        <%= @scribble.name %>
+      </h1>
+      <p class="text-lg text-gray-500 font-medium">
+        View, edit, or roll back your scribble below
+      </p>
+    </header>
 
-        <%= turbo_frame_tag "scribble_content" do %>
-            <%= render "layouts/flash" %>
-            <%= render "scribbleVersionList", versions: @body_versions, scribble: @scribble %>
+    <!-- Content Card -->
+    <div class="w-full bg-ui-bg p-6 border border-gray-300 rounded-theme-md shadow-sm text-left">
 
-            <% if params[:version_id].present? && @historical_rich_text %>
-                <div class="w-full bg-yellow-50 border border-yellow-200 rounded p-6 shadow-sm mb-4">
-                    <div class="flex items-center justify-between border-b border-yellow-200 pb-3 mb-4">
-                        <h2 class="scribbleName font-bold text-xl text-yellow-800">
-                            Viewing Past Version # <%= @normalizedVersion %>: <%= @scribble.name %>
-                        </h2>
+      <%= turbo_frame_tag "scribble_content" do %>
+        <%= render "layouts/flash" %>
+        <%= render "scribbleVersionList", versions: @body_versions, scribble: @scribble %>
 
-                        <div class="flex">
-                            <%= link_to "Return to Current", scribble_path(@scribble),
-                                    class: "text-sm bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-1 px-3 rounded shadow transition-all" %>
+        <% if params[:version_id].present? && @historical_rich_text %>
+          <div class="w-full bg-brand-primary/5 border border-brand-primary/30 rounded-theme-md p-6 shadow-sm mb-4">
+            <div class="flex items-center justify-between border-b border-brand-primary/20 pb-3 mb-4">
+              <h2 class="scribbleName font-bold text-xl text-brand-primary">
+                Viewing Past Version # <%= @normalizedVersion %>: <%= @scribble.name %>
+              </h2>
 
-                            <button type="button" onclick="document.getElementById('version-modal').showModal()" class=  "<%= circle_btn_classes %>">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                                <title>Go Back in Time</title>
-                                <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
-                                </svg>
-                            </button>
+              <div class="flex items-center gap-2">
+                <%= link_to "Return to Current", scribble_path(@scribble),
+                        class: "text-sm bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-1.5 px-3 rounded-theme-md shadow-sm transition-all" %>
 
-                            <%= link_to download_scribble_path(@scribble.name, version_id: params[:version_id], normalizedVersion: @normalizedVersion),
-                                title: "Download current version as .txt",
-                                class: circle_btn_classes,
-                                data: { turbo: false } do %>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
-                                    <title>Download this version</title>
-                                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
-                                    </svg>
-                            <% end %>
-                        </div>
-                    </div>
+                <button type="button" onclick="document.getElementById('version-modal').showModal()" class="<%= circle_btn_classes %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <title>Go Back in Time</title>
+                    <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
+                  </svg>
+                </button>
 
-                    <div class="trix-content prose max-w-none">
-                    <%= @historical_rich_text.body %>
-                    </div>
-                </div>
-
-            <% else %>
-
-
-                <%= form_with model: @scribble, html: { autocomplete: "off", class: "w-full" } do |form| %>
-                    <div data-controller="scribble-compare"
-                        data-scribble-compare-original-body-value="<%= strip_tags(@scribble.body.to_s).strip %>"
-                        data-scribble-compare-enabled-class="<%= scribble_button_enabled_classes %>"
-                        data-scribble-compare-disabled-class="<%= scribble_button_disabled_classes %>"
-                        class="w-full">
-
-                        <h2 class="scribbleName font-bold text-2xl mb-4 text-gray-800">Scribble name: <%= @scribble.name %></h2>
-
-                        <div style="display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; white-space: nowrap; max-width: 100%;">
-
-                            <span class="versionInfo">Ver. <%= @scribble.body.versions.size %> (Current)</span>
-
-                            <button type="button" onclick="document.getElementById('version-modal').showModal()" class=  "<%= circle_btn_classes %>">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <title>Go Back in Time</title>
-                            <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
-                            </svg>
-                            </button>
-
-                            <%= link_to download_scribble_path(@scribble.name),
-                                title: "Download current version as .txt",
-                                class: circle_btn_classes,
-                                data: { turbo: false } do %>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
-                                    <title>Download this version</title>
-                                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
-                                    </svg>
-                            <% end %>
-                        </div>
-
-                        <div class="mb-4">
-                            <%= form.rich_textarea :body, data: { action: "input->scribble-compare#checkChanges" } %>
-                            <p data-scribble-compare-target="status" class="text-sm mt-1"></p>
-                        </div>
-
-                        <div>
-                            <%= form.submit "Update Scribble",
-                                disabled: true,
-                                data: { scribble_compare_target: "submitButton" },
-                                class: "#{scribble_button_disabled_classes} font-semibold py-2 px-4 border rounded transition-all duration-300 ease-in-out cursor-not-allowed" %>
-
-                        </div>
-                    </div>
+                <%= link_to download_scribble_path(@scribble.name, version_id: params[:version_id], normalizedVersion: @normalizedVersion),
+                    title: "Download current version as .txt",
+                    class: circle_btn_classes,
+                    data: { turbo: false } do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+                    <title>Download this version</title>
+                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                  </svg>
                 <% end %>
-            <% end %>
+              </div>
+            </div>
+
+            <div class="trix-content prose max-w-none text-ui-text">
+              <%= @historical_rich_text.body %>
+            </div>
+          </div>
+
+        <% else %>
+
+          <%= form_with model: @scribble, html: { autocomplete: "off", class: "w-full" } do |form| %>
+            <div data-controller="scribble-compare"
+                data-scribble-compare-original-body-value="<%= strip_tags(@scribble.body.to_s).strip %>"
+                data-scribble-compare-enabled-class="<%= scribble_button_enabled_classes %>"
+                data-scribble-compare-disabled-class="<%= scribble_button_disabled_classes %>"
+                class="w-full space-y-4">
+
+              <div class="flex items-center justify-between gap-3 pb-3 border-b border-gray-200">
+                <span class="versionInfo text-sm font-medium text-gray-500">
+                  Ver. <%= @scribble.body.versions.size %> (Current)
+                </span>
+
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="document.getElementById('version-modal').showModal()" class="<%= circle_btn_classes %>">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                      <title>Go Back in Time</title>
+                      <path d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
+                    </svg>
+                  </button>
+
+                  <%= link_to download_scribble_path(@scribble.name),
+                      title: "Download current version as .txt",
+                      class: circle_btn_classes,
+                      data: { turbo: false } do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+                      <title>Download this version</title>
+                      <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+
+              <!-- Wrapper matches new-form's Trix container: prevents toolbar overflow -->
+              <div class="bg-ui-bg overflow-hidden w-full max-w-full">
+                <%= form.rich_textarea :body,
+                    class: "",
+                    data: { action: "input->scribble-compare#checkChanges" } %>
+              </div>
+
+              <p data-scribble-compare-target="status" class="text-sm text-gray-500"></p>
+
+              <div class="flex justify-end">
+                <%= form.submit "Update Scribble",
+                    disabled: true,
+                    data: { scribble_compare_target: "submitButton" },
+                    class: "#{scribble_button_disabled_classes} font-semibold py-2.5 px-4 rounded-theme-md shadow-sm transition-all duration-300 ease-in-out cursor-not-allowed" %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
+      <% end %>
 
-
-        <% if @scribble.locked %>
-            <%= button_to "Lock Now",
-                clear_session_scribble_path,
-                method: :delete,
-                class: "#{scribble_button_enabled_classes}" %>
-        <% end %>
-
-        <div data-controller="timezone" class="flex flex-col items-center gap-3 text-center mt-8 pt-6 border-t border-gray-200 w-full text-gray-600">
-            <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
-            <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
-            <%= link_to "Back Home", root_path, class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded transition-all" %>
-        </div>
     </div>
-</div>
 
+    <% if @scribble.locked %>
+      <%= button_to "Lock Now",
+          clear_session_scribble_path,
+          method: :delete,
+          class: "#{scribble_button_enabled_classes} font-semibold py-2.5 px-4 rounded-theme-md shadow-sm transition-all" %>
+    <% end %>
+
+    <div data-controller="timezone" class="flex flex-col items-center gap-2 text-center pt-6 border-t border-gray-200 w-full text-gray-500">
+      <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
+      <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
+      <%= link_to "Back Home", root_path,
+          class: "bg-transparent hover:bg-brand-primary text-brand-primary font-semibold hover:text-white py-2 px-4 border border-brand-primary rounded-theme-md transition-all" %>
+    </div>
+
+  </main>
+</section>
 
