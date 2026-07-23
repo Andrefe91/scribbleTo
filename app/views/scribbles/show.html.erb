@@ -1,5 +1,5 @@
 <%# Show Page %>
-<section class="min-h-screen bg-ui-bg flex flex-col justify-between p-6 sm:p-12">
+<section class="min-h-screen bg-ui-bg flex flex-col justify-between p-4 sm:p-12">
   <main class="flex-1 container mx-auto max-w-4xl flex flex-col items-center text-center space-y-8">
 
     <!-- Title Section -->
@@ -13,20 +13,20 @@
     </header>
 
     <!-- Content Card -->
-    <div class="w-full bg-ui-bg p-6 border border-gray-300 rounded-theme-md shadow-sm text-left">
+    <div class="w-full flex flex-col flex-1 bg-ui-bg p-4 sm:p-6 border border-grey-3 rounded-theme-md text-left">
 
-      <%= turbo_frame_tag "scribble_content" do %>
+      <%= turbo_frame_tag "scribble_content", class: "flex flex-col flex-1 w-full" do %>
         <%= render "layouts/flash" %>
         <%= render "scribbleVersionList", versions: @body_versions, scribble: @scribble %>
 
         <% if params[:version_id].present? && @historical_rich_text %>
-          <div class="w-full bg-brand-primary/5 border border-brand-primary/30 rounded-theme-md p-6 shadow-sm mb-4">
-            <div class="flex items-center justify-between border-b border-brand-primary/20 pb-3 mb-4">
-              <h2 class="scribbleName font-bold text-xl text-brand-primary">
+          <div class="flex-1 w-full bg-brand-primary/5 border border-brand-primary/30 rounded-theme-md p-6 shadow-sm mb-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between border-b border-brand-primary/20 pb-3 mb-4">
+              <h2 class="scribbleName font-bold text-base sm:text-xl text-brand-primary">
                 Viewing Past Version # <%= @normalizedVersion %>: <%= @scribble.name %>
               </h2>
 
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 mt-3 sm:mt-0">
                 <%= link_to "Return to Current", scribble_path(@scribble),
                         class: "text-sm bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-1.5 px-3 rounded-theme-md shadow-sm transition-all" %>
 
@@ -56,14 +56,14 @@
 
         <% else %>
 
-          <%= form_with model: @scribble, html: { autocomplete: "off", class: "w-full" } do |form| %>
+          <%= form_with model: @scribble, html: { autocomplete: "off", class: "w-full flex flex-col flex-1" } do |form| %>
             <div data-controller="scribble-compare"
-                data-scribble-compare-original-body-value="<%= strip_tags(@scribble.body.to_s).strip %>"
+                data-scribble-compare-original-body-value="<%= @scribble.body.to_plain_text.strip %>"
                 data-scribble-compare-enabled-class="<%= scribble_button_enabled_classes %>"
                 data-scribble-compare-disabled-class="<%= scribble_button_disabled_classes %>"
-                class="w-full space-y-4">
+                class="w-full flex flex-col flex-1 space-y-4">
 
-              <div class="flex items-center justify-between gap-3 pb-3 border-b border-gray-200">
+              <div class="flex items-center justify-end gap-3 pb-3 border-b border-gray-200">
                 <span class="versionInfo text-sm font-medium text-gray-500">
                   Ver. <%= @scribble.body.versions.size %> (Current)
                 </span>
@@ -89,19 +89,21 @@
               </div>
 
               <!-- Wrapper matches new-form's Trix container: prevents toolbar overflow -->
-              <div class="bg-ui-bg overflow-hidden w-full max-w-full">
+              <div class="bg-ui-bg overflow-hidden flex flex-col flex-1 w-full max-w-full">
                 <%= form.rich_textarea :body,
                     class: "",
-                    data: { action: "input->scribble-compare#checkChanges" } %>
+                    data: { action: "trix-change->scribble-compare#checkChanges" } %>
               </div>
 
               <p data-scribble-compare-target="status" class="text-sm text-gray-500"></p>
 
-              <div class="flex justify-end">
+              <div class="flex items-center justify-end gap-3 pt-2">
+                <%= link_to "Go Back", root_path, class: button_classes(:secondary), data: { turbo_frame: "_top" } %>
+
                 <%= form.submit "Update Scribble",
                     disabled: true,
                     data: { scribble_compare_target: "submitButton" },
-                    class: "#{scribble_button_disabled_classes} font-semibold py-2.5 px-4 rounded-theme-md shadow-sm transition-all duration-300 ease-in-out cursor-not-allowed" %>
+                    class: "#{scribble_button_disabled_classes} #{button_classes(:primary)}" %>
               </div>
             </div>
           <% end %>
@@ -114,15 +116,16 @@
       <%= button_to "Lock Now",
           clear_session_scribble_path,
           method: :delete,
-          class: "#{scribble_button_enabled_classes} font-semibold py-2.5 px-4 rounded-theme-md shadow-sm transition-all" %>
+          class: button_classes(:primary) %>
     <% end %>
 
-    <div data-controller="timezone" class="flex flex-col items-center gap-2 text-center pt-6 border-t border-gray-200 w-full text-gray-500">
-      <p>Scribble created: <%= @scribble.created_at.to_fs(:long) %></p>
-      <p>Scribble set for deletion at: <%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></p>
-      <%= link_to "Back Home", root_path,
-          class: "bg-transparent hover:bg-brand-primary text-brand-primary font-semibold hover:text-white py-2 px-4 border border-brand-primary rounded-theme-md transition-all" %>
-    </div>
+    <div data-controller="timezone" class="text-sm sm:text-base grid grid-cols-[auto_auto] justify-end gap-x-2 gap-y-1 w-full text-gray-500">
+      <span class="text-right font-semibold text-brand-primary">Scribble created:</span>
+      <span class="text-left"><%= @scribble.created_at.to_fs(:long) %></span>
+
+      <span class="text-right font-semibold text-brand-primary">Scribble set for deletion at:</span>
+      <span class="text-left"><%= (@scribble.created_at + @scribble.deleteTime.days).to_fs(:long) %></span>
+  </div>
 
   </main>
 </section>

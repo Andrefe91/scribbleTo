@@ -444,3 +444,10 @@ trix-editor .attachment__metadata {
   padding: 0 !important;
   max-width: 100% !important;
 }
+
+/* Due to size  constrains, we are hiding the two buttons might not be as necessary on mobile */
+@media (max-width: 768px) {
+  trix-toolbar .trix-button-group--history-tools {
+    display: none !important;
+  }
+}

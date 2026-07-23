@@ -68,7 +68,7 @@ export default class extends Controller {
 		this.errorTarget.textContent = message;
 		this.errorTarget.classList.remove("hidden");
 		this.inputTarget.classList.add("border-red-500", "focus:ring-red-500");
-		this.inputTarget.classList.remove("border-gray-300", "focus:ring-sky-500");
+		this.inputTarget.classList.remove("border-gray-300");
 
     // Disable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {
@@ -85,7 +85,7 @@ export default class extends Controller {
 		this.errorTarget.textContent = "";
 		this.errorTarget.classList.add("hidden");
 		this.inputTarget.classList.remove("border-red-500", "focus:ring-red-500");
-		this.inputTarget.classList.add("border-gray-300", "focus:ring-sky-500");
+		this.inputTarget.classList.add("border-gray-300");
 
     // Enable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {

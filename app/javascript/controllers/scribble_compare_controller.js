@@ -7,20 +7,33 @@ export default class extends Controller {
   // Dirty tracking the body Value
   static values = { originalBody: String }
 
-  connect() {
-    this.stateInit();
+  originalBodyValueChanged(newValue, oldValue) {
+    console.log("Compare Connected")
+    console.log(newValue, oldValue)
+    this.stateInit()
   }
 
   checkChanges(event) {
-    const currentBody = event.target.editor.getDocument().toString().trim()
+    const editor = event.target.editor || event.detail?.editor
+    if (!editor) return
 
-    if (currentBody === this.originalBodyValue) {
+    // Get the current plain text string from the editor
+    const currentBody = this.normalizeText(editor.getDocument().toString())
+    const originalBody = this.normalizeText(this.originalBodyValue)
+
+    if (currentBody === originalBody) {
       this.statusTarget.textContent = "No Change";
       this.makeDisabled();
     } else {
       this.statusTarget.textContent = "You have unsaved changes!";
       this.makeEnabled();
     }
+  }
+
+  normalizeText(text) {
+    if (!text) return ""
+    return text
+      .replace(/\u00a0/g, " ").replace(/\r\n/g, "\n").replace(/\s+/g, " ").trim()
   }
 
   // Needs for initial state on the Show page
