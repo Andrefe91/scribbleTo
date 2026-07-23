@@ -1,10 +1,10 @@
-<section data-controller="block-trix-uploads" class="min-h-screen bg-ui-bg flex flex-col justify-between p-6 sm:p-12">
-  <main class="flex-1 container mx-auto max-w-5xl flex flex-col items-center text-center space-y-8">
+<section data-controller="block-trix-uploads" class="min-h-screen md:h-dvh bg-ui-bg flex flex-col justify-between p-4 sm:p-6 md:p-12 overflow-y-auto md:overflow-hidden">
+  <main class="flex-1 container mx-auto max-w-5xl flex flex-col items-center text-center space-y-6 w-full my-auto md:min-h-0">
 
     <!-- Title Section -->
-    <header class="space-y-2">
+    <header class="space-y-2 flex flex-col w-full shrink-0">
       <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-primary tracking-tight">
-        Create a Scribble
+        Scribbling To:
       </h1>
       <p class="text-lg text-gray-500 font-medium">
         Set your options and write your content below
@@ -12,7 +12,7 @@
     </header>
 
     <!-- Form Partial Container -->
-    <div class="w-full">
+    <div class="w-full flex flex-col flex-1 md:min-h-0">
       <%= render "newScribbleForm" %>
     </div>
 

@@ -1,10 +1,10 @@
-<div data-controller="uniqueness-validation check-locked-scribble" class="w-full text-left">
-    <%= form_with model: @scribble, data: { turbo_frame: "_top" }, class: "w-full" do |form| %>
+<div data-controller="uniqueness-validation check-locked-scribble" class="w-full text-left flex flex-col flex-1 h-full md:min-h-0">
+    <%= form_with model: @scribble, data: { turbo_frame: "_top" }, class: "w-full flex-1 flex flex-col min-h-0" do |form| %>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 flex-1 min-h-0">
 
             <!-- ================= LEFT COLUMN: SETTINGS ================= -->
-            <div class="md:col-span-4 space-y-6 bg-ui-bg p-6 border border-gray-300 rounded-theme-md shadow-sm">
+            <div class="md:col-span-4 space-y-6 bg-ui-bg p-6 border-2 border-grey-3 rounded-theme-md md:mt-15 self-start">
 
                 <!-- 1. Scribble Name Input -->
                 <div class="space-y-1 relative">
@@ -18,10 +18,9 @@
                         uniqueness_validation_target: "input",
                         action: "input->uniqueness-validation#checkWithDelay"
                         },
-                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-gray-300 rounded-theme-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all placeholder-gray-400",
+                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all placeholder-gray-400",
                         maxlength: 50,
                         placeholder: "my-awesome-scribble" %>
-
 
                     <!-- Floating Error Message (Out of layout flow) -->
                     <div data-uniqueness-validation-target="error"
@@ -30,16 +29,16 @@
                 </div>
 
                 <!-- 2. Delete After (Life) -->
-                <div class="space-y-2 pt-2 border-t border-gray-200">
+                <div class="space-y-2 pt-2 border-t border-grey-2">
                     <%= form.label :deleteTime, "Scribble Life", class: "block text-sm font-semibold text-ui-text" %>
 
                     <!-- Segmented Radio Button Group -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
                         <% [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]].each do |label, value| %>
-                        <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :deleteTime, value,
-                            checked: (value == 7), # Sets 7 Days as the default selected option
-                            class: "sr-only" %>   <!-- Hides the default browser radio circle -->
+                            checked: (value == 7),
+                            class: "sr-only" %>
 
                             <span><%= label %></span>
                         </label>
@@ -48,12 +47,12 @@
                 </div>
 
                 <!-- 3. Visibility Setting (Public vs Private) -->
-                <div class="space-y-2 pt-2 border-t border-gray-200">
+                <div class="space-y-2 pt-2 border-t border-grey-2">
                     <label class="block text-sm font-semibold text-ui-text">Visibility</label>
 
                     <div class="flex flex-col lg:flex-row gap-2">
                         <!-- Public Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, false,
                                 checked: !@scribble.locked?,
                                 data: {
@@ -64,7 +63,7 @@
                         </label>
 
                         <!-- Private Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-gray-300 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-[:checked]:border-brand-primary has-[:checked]:ring-2 has-[:checked]:ring-brand-primary has-[:checked]:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, true,
                                 checked: @scribble.locked?,
                                 data: {
@@ -86,22 +85,19 @@
                             data: {
                             check_locked_scribble_target: "passwordField"
                             },
-                            class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-gray-300 rounded-theme-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
+                            class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
                             placeholder: "Enter password" %>
 
-                        <!-- Floating Toggle Button -->
                         <button type="button"
                         data-action="click->check-locked-scribble#togglePasswordVisibility"
-                        class="absolute right-2.5 p-1 text-gray-400 hover:text-ui-text focus:outline-none transition-colors"
+                        class="absolute right-2.5 p-1 text-gray-400 hover:text-ui-text border border-grey-4 rounded-theme-md hover:bg-grey-2 focus:outline-none transition-colors"
                         aria-label="Toggle password visibility">
 
-                        <!-- Eye Icon (Visible when password is hidden) -->
                         <svg data-check-locked-scribble-target="eyeIcon" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
 
-                        <!-- Eye Off Icon (Visible when password is shown) -->
                         <svg data-check-locked-scribble-target="eyeOffIcon" class="w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
                         </svg>
@@ -113,29 +109,29 @@
 
 
             <!-- ================= RIGHT COLUMN: TRIX EDITOR & ACTIONS ================= -->
-            <div class="md:col-span-8 flex flex-col space-y-6">
+            <div class="md:col-span-8 flex flex-col space-y-6 flex-1 min-h-0">
 
                 <!-- Rich Text Area Container -->
-                <div class="space-y-1 w-full max-w-full min-w-0">
-                <%= form.label :body, "Scribble Content", class: "block text-sm font-semibold text-ui-text" %>
+                <div class="space-y-1 w-full max-w-full min-w-0 flex-1 flex flex-col min-h-0">
+                    <%= form.label :body, "Scribble Content", class: "block text-sm font-semibold text-ui-text" %>
 
-                <!-- Wrapper prevents horizontal overflow from the Trix toolbar -->
-                <div class="bg-ui-bg overflow-hidden w-full max-w-full">
-                <%= form.rich_text_area :body,
-                class: "min-h-[60vh] p-4 text-ui-text border-0 focus:outline-none w-full max-w-full [&_trix-editor]:min-h-[60vh] [&_trix-editor]:max-w-full [&_trix-editor]:break-words [&_trix-toolbar]:overflow-x-auto [&_trix-toolbar]:flex-wrap" %>
-                </div>
+                    <!-- Wrapper prevents horizontal overflow from the Trix toolbar and expands vertically -->
+                    <div class="bg-ui-bg overflow-hidden w-full max-w-full flex-1 flex flex-col min-h-0">
+                        <%= form.rich_text_area :body,
+                            class: "p-4 text-ui-text border-0 focus:outline-none w-full max-w-full h-full flex-1 min-h-0" %>
+                    </div>
                 </div>
 
                 <!-- Action Buttons (Anchored to Bottom Right) -->
                 <div class="flex items-center justify-end gap-3 pt-2">
-                <%= link_to "Cancel",
-                root_path,
-                data: { turbo_frame: "_top" },
-                class: button_classes(:secondary) %>
+                    <%= link_to "Cancel",
+                        root_path,
+                        data: { turbo_frame: "_top" },
+                        class: button_classes(:secondary) %>
 
-                <%= form.submit "Create Scribble",
-                data: { uniqueness_validation_target: "submitButton" },
-                class: button_classes(:primary) %>
+                    <%= form.submit "Create Scribble",
+                        data: { uniqueness_validation_target: "submitButton" },
+                        class: button_classes(:primary) %>
                 </div>
 
             </div>
