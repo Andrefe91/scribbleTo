@@ -81,13 +81,14 @@
                 </div>
 
                 <!-- 4. Create Password (Conditionally toggled by Stimulus) -->
-                <div class="space-y-1 pt-1" data-check-locked-scribble-target="passwordWrapper">
+                <div class="relative space-y-1 pt-1" data-check-locked-scribble-target="passwordWrapper">
                     <%= form.label :password, "Create Password", class: "block text-base font-semibold text-ui-text" %>
 
+                    <%= tip_message("Password must be at least 8 characters") %>
                     <div class="relative flex items-center">
                         <%= form.password_field :password,
                             data: {
-                            check_locked_scribble_target: "passwordField"
+                            check_locked_scribble_target: "passwordField", action: "input->check-locked-scribble#validate"
                             },
                             class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
                             placeholder: "Enter password" %>
@@ -107,6 +108,8 @@
                         </svg>
                         </button>
                     </div>
+
+                    <p data-check-locked-scribble-target="error" class="hidden absolute left-0 top-full mt-1 w-full z-10 px-3 py-2 text-base font-medium text-grey-8 bg-brand-error-bg rounded-theme-md shadow-md text-left transition-all"></p>
                 </div>
 
             </div>
@@ -134,7 +137,7 @@
                         class: button_classes(:secondary) %>
 
                     <%= form.submit "Create Scribble",
-                        data: { uniqueness_validation_target: "submitButton" },
+                        data: {uniqueness_validation_target: "submitButton", check_locked_scribble_target: "submitButton"},
                         class: button_classes(:primary) %>
                 </div>
 

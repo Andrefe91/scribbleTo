@@ -17,7 +17,7 @@ class Scribble < ApplicationRecord
   # Only validate the password if the user is trying to set one
   validates :password,
             presence: true,
-            length: { minimum: 6 },
+            length: { minimum: 8 },
             allow_blank: true, # Allows it to be empty/nil safely
             if: :password_digest_changed?
 
