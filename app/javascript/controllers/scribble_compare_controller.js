@@ -8,8 +8,6 @@ export default class extends Controller {
   static values = { originalBody: String }
 
   originalBodyValueChanged(newValue, oldValue) {
-    console.log("Compare Connected")
-    console.log(newValue, oldValue)
     this.stateInit()
   }
 

@@ -29,6 +29,13 @@ module ApplicationHelper
     "#{BUTTON_STYLES.fetch(variant, BUTTON_STYLES[:secondary])} #{extra_classes}".strip
   end
 
+  def tip_message(content = nil, extra_classes: "", **options, &block)
+    base_classes = "text-sm text-grey-6"
+    combined_classes = "#{base_classes} #{extra_classes}".strip
+
+    tag.p(content, class: combined_classes, **options, &block)
+  end
+
   def circle_btn_classes(options = {})
     # 1. Grab your size and color options or fall back to defaults
     size       = options[:size] || "w-9 h-9"

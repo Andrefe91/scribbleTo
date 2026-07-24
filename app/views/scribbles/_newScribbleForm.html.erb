@@ -4,13 +4,13 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 flex-1 min-h-0">
 
             <!-- ================= LEFT COLUMN: SETTINGS ================= -->
-            <div class="md:col-span-4 space-y-6 bg-ui-bg p-6 border-2 border-grey-3 rounded-theme-md md:mt-15 self-start">
+            <div class="md:col-span-4 space-y-4 bg-ui-bg p-6 border-2 border-grey-3 rounded-theme-md md:mt-0 self-start">
 
                 <!-- 1. Scribble Name Input -->
                 <div class="space-y-1 relative">
                     <%= form.label :name, "Name", class: "block text-sm font-semibold text-ui-text" %>
 
-                    <p class="text-xs pt-2 text-gray-500">No spaces or special symbols allowed.</p>
+                    <%= tip_message("No spaces or special symbols allowed") %>
 
                     <%= form.text_field :name,
                         autofocus: true,
@@ -30,9 +30,11 @@
 
                 <!-- 2. Delete After (Life) -->
                 <div class="space-y-2 pt-2 border-t border-grey-2">
+
                     <%= form.label :deleteTime, "Scribble Life", class: "block text-sm font-semibold text-ui-text" %>
 
                     <!-- Segmented Radio Button Group -->
+                    <%= tip_message("How long to deletion") %>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
                         <% [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]].each do |label, value| %>
                         <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
@@ -50,6 +52,7 @@
                 <div class="space-y-2 pt-2 border-t border-grey-2">
                     <label class="block text-sm font-semibold text-ui-text">Visibility</label>
 
+                    <%= tip_message("Share publicly via link, or lock with a password") %>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <!-- Public Option -->
                         <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
