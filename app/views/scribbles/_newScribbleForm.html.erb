@@ -8,7 +8,7 @@
 
                 <!-- 1. Scribble Name Input -->
                 <div class="space-y-1 relative">
-                    <%= form.label :name, "Name", class: "block text-sm font-semibold text-ui-text" %>
+                    <%= form.label :name, "Name", class: "block text-base font-semibold text-ui-text" %>
 
                     <%= tip_message("No spaces or special symbols allowed") %>
 
@@ -18,26 +18,27 @@
                         uniqueness_validation_target: "input",
                         action: "input->uniqueness-validation#checkWithDelay"
                         },
-                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all placeholder-gray-400",
+                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-3 focus:ring-brand-primary transition-all placeholder-gray-400",
                         maxlength: 50,
-                        placeholder: "my-awesome-scribble" %>
+                        placeholder: "my-awesome-scribble",
+                        autocomplete: "off" %>
 
                     <!-- Floating Error Message (Out of layout flow) -->
                     <div data-uniqueness-validation-target="error"
-                    class="hidden absolute left-0 top-full mt-1 w-full z-10 px-3 py-2 text-xs font-medium text-grey-8 bg-brand-error-bg rounded-theme-md shadow-md text-left transition-all">
+                    class="hidden absolute left-0 top-full mt-1 w-full z-10 px-3 py-2 text-base font-medium text-grey-8 bg-brand-error-bg rounded-theme-md shadow-md text-left transition-all">
                     </div>
                 </div>
 
                 <!-- 2. Delete After (Life) -->
                 <div class="space-y-2 pt-2 border-t border-grey-2">
 
-                    <%= form.label :deleteTime, "Scribble Life", class: "block text-sm font-semibold text-ui-text" %>
+                    <%= form.label :deleteTime, "Scribble Life", class: "block text-base font-semibold text-ui-text" %>
 
                     <!-- Segmented Radio Button Group -->
                     <%= tip_message("How long to deletion") %>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
                         <% [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]].each do |label, value| %>
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :deleteTime, value,
                             checked: (value == 7),
                             class: "sr-only" %>
@@ -50,12 +51,12 @@
 
                 <!-- 3. Visibility Setting (Public vs Private) -->
                 <div class="space-y-2 pt-2 border-t border-grey-2">
-                    <label class="block text-sm font-semibold text-ui-text">Visibility</label>
+                    <label class="block text-base font-semibold text-ui-text">Visibility</label>
 
                     <%= tip_message("Share publicly via link, or lock with a password") %>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <!-- Public Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, false,
                                 checked: !@scribble.locked?,
                                 data: {
@@ -66,7 +67,7 @@
                         </label>
 
                         <!-- Private Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-sm font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, true,
                                 checked: @scribble.locked?,
                                 data: {
@@ -81,7 +82,7 @@
 
                 <!-- 4. Create Password (Conditionally toggled by Stimulus) -->
                 <div class="space-y-1 pt-1" data-check-locked-scribble-target="passwordWrapper">
-                    <%= form.label :password, "Create Password", class: "block text-sm font-semibold text-ui-text" %>
+                    <%= form.label :password, "Create Password", class: "block text-base font-semibold text-ui-text" %>
 
                     <div class="relative flex items-center">
                         <%= form.password_field :password,
@@ -116,7 +117,7 @@
 
                 <!-- Rich Text Area Container -->
                 <div class="space-y-1 w-full max-w-full min-w-0 flex-1 flex flex-col min-h-0">
-                    <%= form.label :body, "Scribble Content", class: "block text-sm font-semibold text-ui-text" %>
+                    <%= form.label :body, "Scribble Content", class: "block text-base font-semibold text-ui-text" %>
 
                     <!-- Wrapper prevents horizontal overflow from the Trix toolbar and expands vertically -->
                     <div class="bg-ui-bg overflow-hidden w-full max-w-full flex-1 flex flex-col min-h-0">

@@ -82,6 +82,7 @@
   --color-brand-primary: var(--color-brand-primary);
   --color-brand-secondary: var(--color-brand-secondary);
   --color-brand-error-bg: var(--color-brand-error-bg);
+  --color-brand-error-border: var(--color-brand-error-border);
   --color-ui-bg: var(--ui-bg);
   --color-ui-text: var(--ui-text);
 
@@ -105,7 +106,8 @@
   /* Default Light Theme */
   :root {
     --color-brand-primary: hsl(330 79% 56%);
-    --color-brand-error-bg: hsl(341 100% 95%);
+    --color-brand-error-bg: hsl(338 100% 86%);
+    --color-brand-error-border: hsl(343, 90%, 39%);
     --color-brand-secondary: hsl(268 82% 60%);
     --color-ui-bg: hsl(220, 14%, 96%);
     --ui-text: #0f172a;

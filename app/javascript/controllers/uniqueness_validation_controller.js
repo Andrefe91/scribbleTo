@@ -67,8 +67,8 @@ export default class extends Controller {
 	showError(message) {
 		this.errorTarget.textContent = message;
 		this.errorTarget.classList.remove("hidden");
-		this.inputTarget.classList.add("border-red-500", "focus:ring-red-500");
-		this.inputTarget.classList.remove("border-gray-300");
+		this.inputTarget.classList.add("border-brand-error-border", "focus:ring-brand-error-border");
+		this.inputTarget.classList.remove("border-grey-3", "focus:ring-brand-primary");
 
     // Disable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {
@@ -84,8 +84,8 @@ export default class extends Controller {
 	clearError() {
 		this.errorTarget.textContent = "";
 		this.errorTarget.classList.add("hidden");
-		this.inputTarget.classList.remove("border-red-500", "focus:ring-red-500");
-		this.inputTarget.classList.add("border-gray-300");
+		this.inputTarget.classList.remove("border-brand-error-border", "focus:ring-brand-error-border");
+		this.inputTarget.classList.add("border-grey-3", "focus:ring-brand-primary");
 
     // Enable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {
