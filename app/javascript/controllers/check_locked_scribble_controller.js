@@ -16,6 +16,10 @@ export default class extends Controller {
     this.switchPasswordField();
   }
 
+  disconnect() {
+    clearTimeout(this.timeout);
+  }
+
   switchPasswordField() {
     const isPrivate =
       this.hasPasswordCheckTarget && this.passwordCheckTarget.checked;
@@ -24,6 +28,7 @@ export default class extends Controller {
     this.passwordFieldTarget.disabled = !isPrivate;
 
     if (!isPrivate) {
+      clearTimeout(this.timeout); //Cancel validation if changed to Public
       this.passwordFieldTarget.classList.add(
         "opacity-50",
         "cursor-not-allowed",
@@ -35,8 +40,16 @@ export default class extends Controller {
         "opacity-50",
         "cursor-not-allowed",
       );
-      this.validate(); // Run validation if password protection is active
+      this.validate();
     }
+  }
+
+  debouncedValidate() {
+    clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
+      this.validate();
+    }, 700); // Wait 1 second after the last keystroke
   }
 
   validate() {

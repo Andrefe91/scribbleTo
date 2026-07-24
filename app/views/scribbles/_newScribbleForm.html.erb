@@ -88,7 +88,7 @@
                     <div class="relative flex items-center">
                         <%= form.password_field :password,
                             data: {
-                            check_locked_scribble_target: "passwordField", action: "input->check-locked-scribble#validate"
+                            check_locked_scribble_target: "passwordField", action: "input->check-locked-scribble#debouncedValidate"
                             },
                             class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
                             placeholder: "Enter password" %>
