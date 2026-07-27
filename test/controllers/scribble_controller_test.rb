@@ -34,7 +34,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
   test "should redirect to new if scribble is not found" do
     get scribble_url(name: "does-not-exist")
     assert_redirected_to new_scribble_path(name: "does-not-exist")
-    assert_equal "Creating new Scribble!", flash[:alert]
+    assert_equal "Creating new Scribble!", flash[:notice]
   end
 
   test "should create scribble with valid parameters and redirect" do
@@ -172,7 +172,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
 
     # Triggers your custom set_scribble rescue rule
     assert_redirected_to new_scribble_path(name: "completely-imaginary-scribble-name")
-    assert_equal "Creating new Scribble!", flash[:alert]
+    assert_equal "Creating new Scribble!", flash[:notice]
   end
 
   # Tests for PaperTrail versioning
