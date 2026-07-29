@@ -1,6 +1,6 @@
 <%# Show Page %>
 <section class="min-h-screen bg-ui-bg flex flex-col justify-between p-4 sm:p-12">
-  <main class="flex-1 container mx-auto max-w-4xl flex flex-col items-center text-center space-y-8">
+  <main class="relative isolate flex-1 container mx-auto max-w-4xl flex flex-col items-center text-center space-y-8">
 
     <!-- Title Section -->
     <header class="space-y-2">
@@ -13,7 +13,12 @@
     </header>
 
     <!-- Content Card -->
-    <div class="w-full flex flex-col flex-1 bg-ui-bg p-4 sm:p-6 border border-grey-3 rounded-theme-md text-left">
+
+
+    <div class="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[80%] bg-brand-primary/8 blur-[150px] pointer-events-none rounded-full -z-10">
+    </div>
+
+    <div class=" w-full flex flex-col flex-1 bg-ui-bg p-4 sm:p-6 border border-grey-3 rounded-theme-md text-left z-0">
 
       <%= turbo_frame_tag "scribble_content", class: "flex flex-col flex-1 w-full" do %>
         <%= render "layouts/flash" %>
@@ -57,6 +62,7 @@
         <% else %>
 
           <%= form_with model: @scribble, html: { autocomplete: "off", class: "w-full flex flex-col flex-1" } do |form| %>
+
             <div data-controller="scribble-compare"
                 data-scribble-compare-original-body-value="<%= @scribble.body.to_plain_text.strip %>"
                 data-scribble-compare-enabled-class="<%= scribble_button_enabled_classes %>"
@@ -88,10 +94,9 @@
                 </div>
               </div>
 
-              <!-- Wrapper matches new-form's Trix container: prevents toolbar overflow -->
               <div class="bg-ui-bg overflow-hidden flex flex-col flex-1 w-full max-w-full">
                 <%= form.rich_textarea :body,
-                    class: "prose max-w-none",
+                    class: "prose flex-1 max-w-none",
                     data: { action: "trix-change->scribble-compare#checkChanges" } %>
               </div>
 
