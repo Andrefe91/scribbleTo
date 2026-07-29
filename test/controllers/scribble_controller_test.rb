@@ -235,4 +235,12 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to scribble_path(@scribble)
     assert_equal "Version not found.", flash[:alert]
   end
+
+  test "should display flash alert when body is empty" do
+    post scribbles_url, params: { scribble: { body: "" } }
+
+    assert_response :unprocessable_entity
+
+    assert_equal "Scribble can not be empty", flash[:alert]
+  end
 end
