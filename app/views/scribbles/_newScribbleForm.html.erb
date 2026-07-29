@@ -119,10 +119,9 @@
             <div class="md:col-span-8 flex flex-col space-y-6 flex-1 min-h-0">
 
                 <!-- Rich Text Area Container -->
-                <div class="space-y-1 w-full max-w-full min-w-0 flex-1 flex flex-col min-h-0">
-                    <%= form.label :body, "Scribble Content", class: "block text-base font-semibold text-ui-text" %>
+                <div class="w-full max-w-full min-w-0 flex-1 flex flex-col min-h-0">
+                    <%= form.label :body, "Scribble Content", class: "block text-base font-semibold text-ui-text mb-1" %>
 
-                    <!-- Wrapper prevents horizontal overflow from the Trix toolbar and expands vertically -->
                     <div class="bg-ui-bg overflow-hidden w-full max-w-full flex-1 flex flex-col min-h-0">
                         <%= form.rich_text_area :body,
                             class: "prose max-w-none p-4 text-ui-text border-0 focus:outline-none w-full max-w-full h-full flex-1 min-h-0" %>
@@ -140,10 +139,7 @@
                         data: {uniqueness_validation_target: "submitButton", check_locked_scribble_target: "submitButton"},
                         class: button_classes(:primary) %>
                 </div>
-
             </div>
-
         </div>
-
     <% end %>
 </div>

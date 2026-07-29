@@ -35,10 +35,17 @@ class ScribblesController < ApplicationController
     # Pass the strong params method instead of the raw params hash
     @scribble = Scribble.new(scribble_params)
 
+    # Need to handle the case for an empty scribble
+    # if @scribble.body.empty?
+    #   flash.now[:alert] = "Scribble can not be empty"
+    #   render :new, status: :unprocessable_entity and return
+    # end
+
     if @scribble.save
       session[:unlocked_scribbles] << @scribble.name
       redirect_to scribble_path(@scribble), notice: "Scribble was successfully created!", status: :see_other
     else
+      flash.now[:alert] = @scribble.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end

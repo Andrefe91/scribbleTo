@@ -135,6 +135,11 @@ trix-toolbar .trix-button-group--file-tools {
 	display: none !important;
 }
 
+@layer components {
+	/* Prevent the wrapper div from breaking Flexbox / Grid layouts */
+	.field_with_errors { display: contents }
+}
+
 @layer utilities {
 	@keyframes popup {
 		0% {

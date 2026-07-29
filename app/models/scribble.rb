@@ -10,7 +10,8 @@ class Scribble < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { message: "This Scribble has already been taken, please choose another one!" }
-  validates :body, :deleteTime, presence: true
+  validates :body, presence: { message: "Scribble can not be empty" }
+  validates :deleteTime, presence: true
 
   validate :body_cannot_contain_attachments
 
