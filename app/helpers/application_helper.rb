@@ -1,7 +1,7 @@
 module ApplicationHelper
   BUTTON_STYLES = {
-    secondary: "px-5 py-2.5 text-base font-semibold border-2 border-grey-3 text-grey-7 bg-gray-100 hover:bg-grey-2 rounded-theme-md shadow-sm transition-colors duration-300 ease-in-out cursor-pointer",
-    primary: "px-6 py-2.5 text-base bg-brand-primary text-ui-bg font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-colors duration-300 ease-in-out cursor-pointer"
+    secondary: "px-5 py-2.5 text-base font-semibold border-2 border-brand-primary text-ui-text  hover:bg-brand-primary/20 rounded-theme-md shadow-sm transition-colors duration-300 ease-in-out cursor-pointer",
+    primary: "px-6 py-2.5 text-base bg-brand-primary text-white font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-colors duration-300 ease-in-out cursor-pointer"
   }.freeze
 
 
@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def tip_message(content = nil, extra_classes: "", **options, &block)
-    base_classes = "text-sm text-grey-6"
+    base_classes = "text-sm text-gray-text"
     combined_classes = "#{base_classes} #{extra_classes}".strip
 
     tag.p(content, class: combined_classes, **options, &block)

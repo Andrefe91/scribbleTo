@@ -3,7 +3,7 @@
 */
 
 trix-editor {
-  border: 2px solid var(--color-grey-3);
+  border: 2px solid var(--color-main-border);
   border-radius: var(--radius-theme-md);
   margin: 0;
   padding: 0.4em 0.6em;
@@ -26,6 +26,7 @@ trix-toolbar .trix-button-row {
   overflow-x: auto; }
 
 trix-toolbar .trix-button-group {
+
   display: flex;
   margin-bottom: 10px;
   border: 1px solid #bbb;

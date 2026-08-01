@@ -4,7 +4,7 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 flex-1 min-h-0">
 
             <!-- ================= LEFT COLUMN: SETTINGS ================= -->
-            <div class="md:col-span-4 space-y-4 bg-ui-bg p-6 border-2 border-grey-3 rounded-theme-md md:mt-0 self-start">
+            <div class="md:col-span-4 space-y-4 bg-ui-bg p-6 border-2 border-main-border rounded-theme-md md:mt-0 self-start">
 
                 <!-- 1. Scribble Name Input -->
                 <div class="space-y-1 relative">
@@ -18,19 +18,19 @@
                         uniqueness_validation_target: "input",
                         action: "input->uniqueness-validation#checkWithDelay"
                         },
-                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-3 focus:ring-brand-primary transition-all placeholder-gray-400",
+                        class: "w-full py-2.5 px-3 text-base font-medium text-ui-text bg-ui-bg border border-main-border rounded-theme-md focus:outline-none focus:ring-3 focus:ring-brand-primary transition-all placeholder-gray-400",
                         maxlength: 50,
                         placeholder: "my-awesome-scribble",
                         autocomplete: "off" %>
 
                     <!-- Floating Error Message (Out of layout flow) -->
                     <div data-uniqueness-validation-target="error"
-                    class="hidden absolute left-0 top-full mt-1 w-full z-10 px-3 py-2 text-base font-medium text-grey-8 bg-brand-error-bg rounded-theme-md shadow-md text-left transition-all">
+                    class="hidden absolute left-0 top-full mt-1 w-full z-10 px-3 py-2 text-base font-medium text-gray-text bg-brand-error-bg rounded-theme-md shadow-md text-left transition-all">
                     </div>
                 </div>
 
                 <!-- 2. Delete After (Life) -->
-                <div class="space-y-2 pt-2 border-t border-grey-2">
+                <div class="space-y-2 pt-2 border-t border-main-border">
 
                     <%= form.label :deleteTime, "Scribble Life", class: "block text-base font-semibold text-ui-text" %>
 
@@ -38,7 +38,7 @@
                     <%= tip_message("How long to deletion") %>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
                         <% [["7 Days", 7], ["3 Days", 3], ["1 Day", 1]].each do |label, value| %>
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-main-border rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:border-brand-primary has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :deleteTime, value,
                             checked: (value == 7),
                             class: "sr-only" %>
@@ -50,13 +50,13 @@
                 </div>
 
                 <!-- 3. Visibility Setting (Public vs Private) -->
-                <div class="space-y-2 pt-2 border-t border-grey-2">
+                <div class="space-y-2 pt-2 border-t border-main-border">
                     <label class="block text-base font-semibold text-ui-text">Visibility</label>
 
                     <%= tip_message("Share publicly via link, or lock with a password") %>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <!-- Public Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-main-border rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:border-brand-primary has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, false,
                                 checked: !@scribble.locked?,
                                 data: {
@@ -67,7 +67,7 @@
                         </label>
 
                         <!-- Private Option -->
-                        <label class="relative flex items-center justify-center p-2.5 border border-grey-3 rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:bg-gray-50 has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
+                        <label class="relative flex items-center justify-center p-2.5 border border-main-border rounded-theme-md bg-ui-bg text-ui-text text-base font-medium cursor-pointer transition-all hover:border-brand-primary has-checked:border-brand-primary has-checked:ring-2 has-checked:ring-brand-primary has-checked:bg-brand-primary/10">
                             <%= form.radio_button :locked, true,
                                 checked: @scribble.locked?,
                                 data: {
@@ -90,12 +90,12 @@
                             data: {
                             check_locked_scribble_target: "passwordField", action: "input->check-locked-scribble#debouncedValidate"
                             },
-                            class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-grey-3 rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
+                            class: "w-full py-2.5 pl-3 pr-10 text-base font-medium text-ui-text bg-ui-bg border border-main-border rounded-theme-md focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all",
                             placeholder: "Enter password" %>
 
                         <button type="button"
                         data-action="click->check-locked-scribble#togglePasswordVisibility"
-                        class="absolute right-2.5 p-1 text-gray-400 hover:text-ui-text border border-grey-4 rounded-theme-md hover:bg-grey-2 focus:outline-none transition-colors"
+                        class="absolute right-2.5 p-1 text-gray-400 hover:text-ui-text border border-main-border rounded-theme-md hover:bg-grey-10 focus:outline-none transition-colors"
                         aria-label="Toggle password visibility">
 
                         <svg data-check-locked-scribble-target="eyeIcon" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -124,7 +124,7 @@
 
                     <div class="bg-ui-bg overflow-hidden w-full max-w-full flex-1 flex flex-col min-h-0">
                         <%= form.rich_text_area :body,
-                            class: "prose max-w-none p-4 text-ui-text border-0 focus:outline-none w-full max-w-full h-full flex-1 min-h-0" %>
+                            class: "prose max-w-none p-4 [&_*]:text-ui-text border-0 focus:outline-none w-full max-w-full h-full flex-1 min-h-0" %>
                     </div>
                 </div>
 

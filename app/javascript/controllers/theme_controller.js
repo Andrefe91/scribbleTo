@@ -1,26 +1,25 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="theme"
 export default class extends Controller {
-  connect() {
-    const savedTheme = localStorage.getItem("theme") || "light"
-    this.applyTheme(savedTheme)
-  }
+	static themes = ["light", "dark", "retro"];
 
-  switch(event) {
-    const theme = event.currentTarget.dataset.themeName
-    this.applyTheme(theme)
-  }
+	toggle() {
+		const currentTheme =
+			document.documentElement.getAttribute("data-theme") || "light";
 
-  applyTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme)
-    localStorage.setItem("theme", theme)
+		const currentIndex = this.constructor.themes.indexOf(currentTheme);
+		const nextIndex = (currentIndex + 1) % this.constructor.themes.length;
+		const nextTheme = this.constructor.themes[nextIndex];
 
-    // Fallback if you still want traditional Tailwind dark: class behavior
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }
+		document.documentElement.setAttribute("data-theme", nextTheme);
+
+		if (nextTheme === "dark") {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
+		}
+
+		document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; SameSite=Lax`;
+	}
 }

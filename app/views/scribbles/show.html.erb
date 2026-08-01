@@ -7,7 +7,7 @@
       <h1 class="scribbleName text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-primary tracking-tight">
         <%= @scribble.name %>
       </h1>
-      <p class="text-lg text-gray-500 font-medium">
+      <p class="text-lg text-gray-text font-medium">
         View, edit, or roll back your scribble below
       </p>
     </header>
@@ -18,7 +18,7 @@
     <div class="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[80%] bg-brand-primary/8 blur-[150px] pointer-events-none rounded-full -z-10">
     </div>
 
-    <div class=" w-full flex flex-col flex-1 bg-ui-bg p-4 sm:p-6 border border-grey-3 rounded-theme-md text-left z-0">
+    <div class=" w-full flex flex-col flex-1 bg-ui-bg p-4 sm:p-6 border border-main-border rounded-theme-md text-left z-0">
 
       <%= turbo_frame_tag "scribble_content", class: "flex flex-col flex-1 w-full" do %>
         <%= render "layouts/flash" %>
@@ -69,8 +69,8 @@
                 data-scribble-compare-disabled-class="<%= scribble_button_disabled_classes %>"
                 class="w-full flex flex-col flex-1 space-y-4">
 
-              <div class="flex items-center justify-end gap-3 pb-3  border-b-2 border-dashed border-grey-3">
-                <span class="versionInfo text-sm font-medium text-gray-500">
+              <div class="flex items-center justify-end gap-3 pb-3  border-b-2 border-dashed border-main-border">
+                <span class="versionInfo text-sm font-medium text-gray-text">
                   Ver. <%= @scribble.body.versions.size %> (Current)
                 </span>
 
@@ -96,11 +96,11 @@
 
               <div class="bg-ui-bg overflow-hidden flex flex-col flex-1 w-full max-w-full">
                 <%= form.rich_textarea :body,
-                    class: "prose flex-1 max-w-none",
+                    class: "prose [&_*]:text-ui-text flex-1 max-w-none",
                     data: { action: "trix-change->scribble-compare#checkChanges" } %>
               </div>
 
-              <p data-scribble-compare-target="status" class="text-sm text-gray-500"></p>
+              <p data-scribble-compare-target="status" class="text-sm text-gray-text"></p>
 
               <div class="flex items-center justify-end gap-3 pt-2">
                 <%= link_to "Go Back", root_path, class: button_classes(:secondary), data: { turbo_frame: "_top" } %>
@@ -124,7 +124,7 @@
           class: button_classes(:primary) %>
     <% end %>
 
-    <div data-controller="timezone" class="text-sm sm:text-base grid grid-cols-[auto_auto] justify-end gap-x-2 gap-y-1 w-full text-gray-500">
+    <div data-controller="timezone" class="text-sm sm:text-base grid grid-cols-[auto_auto] justify-end gap-x-2 gap-y-1 w-full text-gray-text">
       <span class="text-right font-semibold text-brand-primary">Scribble created:</span>
       <span class="text-left"><%= @scribble.created_at.to_fs(:long) %></span>
 

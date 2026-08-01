@@ -86,6 +86,8 @@
 	--color-brand-error-border: var(--color-brand-error-border);
 	--color-ui-bg: var(--ui-bg);
 	--color-ui-text: var(--ui-text);
+	--color-gray-text: var(--gray-text);
+	--color-main-border: var(--color-main-border);
 
 	--color-grey-10: hsl(210 24% 16%);
 	--color-grey-9: hsl(209 20% 25%);
@@ -109,25 +111,33 @@
 		--color-brand-error-bg: hsl(338 100% 86%);
 		--color-brand-error-border: hsl(343, 90%, 39%);
 		--color-brand-secondary: hsl(264 96% 70%);
-		--color-ui-bg: hsl(240, 25%, 98%);
+		--ui-bg: hsl(240, 25%, 98%);
 		--ui-text: #0f172a;
+		--gray-text: hsl(211 10% 53%);
+		--color-main-border: hsl(210 16% 82%);
 	}
 
 	/* Dark Theme */
 	:root[data-theme="dark"],
 	.dark {
-		--color-brand-primary: #60a5fa; /* Lighter blue for dark mode */
-		--color-brand-secondary: #3b82f6;
-		--ui-bg: #0f172a;
-		--ui-text: #f8fafc;
+		--color-brand-primary: hsl(330 79% 56%);
+		--color-brand-error-bg: hsl(338 100% 86%);
+		--color-brand-error-border: hsl(343, 90%, 39%);
+		--color-brand-secondary: hsl(264 96% 70%);
+		--ui-bg: hsl(0, 0%, 6%);
+		--ui-text: hsl(0, 0%, 89%);
+		--gray-text: hsl(211 13% 65%);
+		--color-main-border: hsl(210 16% 82%);
 	}
 
 	/* Custom "Retro" Accent Theme */
 	:root[data-theme="retro"] {
-		--color-brand-primary: #f59e0b; /* Amber */
-		--color-brand-secondary: #b45309;
-		--ui-bg: #fef3c7;
-		--ui-text: #78350f;
+		--color-brand-primary: hsl(120, 91%, 35%);
+		--color-brand-secondary: hsl(135, 96%, 18%);
+		--ui-bg: hsl(0, 0%, 5%);
+		--ui-text: hsl(132, 73%, 45%);
+		--gray-text: hsl(135, 96%, 30%);
+		--color-main-border: hsl(138, 93%, 11%);
 	}
 }
 

@@ -5,7 +5,7 @@
                 <h1 class="bg-linear-to-r from-brand-primary from-40% to-brand-secondary bg-clip-text text-transparent drop-shadow-xl drop-shadow-brand-primary/30 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight">
                     Scribble To...
                 </h1>
-                <div class="text-grey-7 flex-row sm:flex-row justify-center gap-5 pt-1 text-sm font-semibold">
+                <div class="text-gray-text flex-row sm:flex-row justify-center gap-5 pt-1 text-sm font-semibold">
                     <span class="inline-flex items-center gap-1.5  tracking-wide">
                         <svg class="w-4 h-4 shrink-0 text-brand-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20 6L9 17l-5-5"></path>
@@ -27,7 +27,7 @@
                 </div>
             </header>
 
-            <div class="text-grey-7 text-xl font-semibold  tracking-wide text-shadow-md">
+            <div class="text-gray-text text-xl font-semibold  tracking-wide text-shadow-md">
                 The simplest way to create quick notes with custom links: Just name it, create and start writing.
             </div>
 
@@ -48,8 +48,8 @@
             Help
         </button>
 
-        <button type="button" class="<%= button_classes(:secondary) %>">
+        <button type="button" data-controller="theme" data-action="click->theme#toggle" class="<%= button_classes(:secondary) %>">
             Theme
-        </button>
+      </button>
     </footer>
 </section>

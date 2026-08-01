@@ -4,7 +4,7 @@
 
       <!-- Top Domain Indicator -->
       <div class="text-left">
-        <span class="text-base sm:text-xl font-semibold tracking-wide text-grey-7">
+        <span class="text-base sm:text-xl font-semibold tracking-wide text-gray-text">
           http://scribbleto.com/
         </span>
       </div>
@@ -12,7 +12,7 @@
       <div class="relative flex flex-col sm:flex-row gap-3 sm:gap-0">
 
         <!-- Search Field Container -->
-        <div class="relative flex items-center w-full p-2 bg-ui-bg text-ui-text border border-gray-300 rounded-theme-md shadow-md focus-within:ring-2 focus-within:ring-brand-primary transition-all">
+        <div class="relative flex items-center w-full p-2 bg-ui-bg text-ui-text border border-main-border rounded-theme-md shadow-md focus-within:ring-2 focus-within:ring-brand-primary transition-all">
           <%= form.search_field :name,
                 autofocus: true,
                 data: {
@@ -25,7 +25,8 @@
 
           <!-- Desktop Floating "Go!" Button -->
           <%= form.submit "Go!",
-                class: "hidden sm:block px-6 py-2.5 text-base sm:text-lg bg-brand-primary text-ui-bg font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-opacity cursor-pointer focus:outline-none shrink-0" %>
+                class: button_classes(:primary, "hidden sm:block sm:text-lg shrink-0") %>
+
         </div>
 
         <!-- Mobile Standalone "Go!" Button -->
@@ -34,7 +35,7 @@
 
         <!-- Floating Error Box (Out of layout flow) -->
         <div data-uniqueness-validation-target="error"
-             class="hidden absolute left-0 top-full mt-2 w-full z-10 px-4 py-2.5 text-sm sm:text-base font-medium text-grey-8 bg-brand-error-bg rounded-theme-md text-left transition-all">
+             class= <%=button_classes(:primary, "hidden absolute left-0 top-full mt-2 w-full z-10 px-4 py-2.5 text-sm sm:text-base")%>>
         </div>
 
       </div>
