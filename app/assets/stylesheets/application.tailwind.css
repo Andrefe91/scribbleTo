@@ -137,6 +137,8 @@
 	:root[data-theme="retro"] {
 		--color-brand-primary: hsl(120, 91%, 35%);
 		--color-brand-secondary: hsl(135, 96%, 18%);
+		--color-brand-error-bg: hsl(0, 0%, 5%);
+		--color-brand-error-border: hsl(120, 91%, 35%);
 		--ui-bg: hsl(0, 0%, 5%);
 		--ui-text: hsl(132, 73%, 45%);
 		--gray-text: hsl(135, 96%, 30%);

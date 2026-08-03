@@ -4,7 +4,7 @@ import normalizeName from "../normalizeName.js";
 // Connects to data-controller="uniqueness-validation"
 export default class extends Controller {
 	static targets = ["input", "error", "submitButton"];
-	static RESERVED_WORDS = Object.freeze(["admin", "assets", "api", "about", "contact", "help", "support", "login", "logout", "signup", "settings"]);
+	static RESERVED_WORDS = Object.freeze(["admin", "assets", "api", "about", "contact", "help", "support", "login", "logout", "signup", "settings", "new"]);
 
 	static isReserved(word) {
 		return this.RESERVED_WORDS.includes(word.toLowerCase());
@@ -12,6 +12,7 @@ export default class extends Controller {
 
 	connect() {
 		this.timeout = null;
+		this.checkWithDelay();
 	}
 
 	// Debounce the uniqueness check to avoid too many requests
@@ -39,6 +40,7 @@ export default class extends Controller {
 
 		try {
 			// Fetch uniqueness state from our Rails endpoint
+			console.log("Checking database")
 			const response = await fetch(
 				`/scribbles/check_uniqueness?name=${encodeURIComponent(name)}`,
 			);
@@ -53,7 +55,7 @@ export default class extends Controller {
 			}
 
 			const data = await response.json();
-
+			console.log(data);
 			if (!data.unique) {
 				this.showError("This name is already taken.");
 			} else {
@@ -69,6 +71,7 @@ export default class extends Controller {
 		this.errorTarget.classList.remove("hidden");
 		this.inputTarget.classList.add("border-brand-error-border", "focus:ring-brand-error-border");
 		this.inputTarget.classList.remove("border-grey-3", "focus:ring-brand-primary");
+		console.log(this.errorTarget)
 
     // Disable the submit button if it exists
 		if (this.hasSubmitButtonTarget) {
