@@ -106,7 +106,7 @@ class ScribbleControllerTest < ActionDispatch::IntegrationTest
     # Check that the error message pops up on the screen
     follow_redirect!
     assert_not_nil flash[:alert]
-    assert_select "p", text: "Incorrect Password..."
+    assert_select "p", text: "Please enter the password to view its contents."
 
     # Verify they haven't bypassed security via the session
     assert_empty session[:unlocked_scribbles]

@@ -1,17 +1,17 @@
 module ApplicationHelper
   BUTTON_STYLES = {
     secondary: "px-5 py-2.5 text-base font-semibold border-2 border-brand-primary text-ui-text  hover:bg-brand-primary/20 rounded-theme-md shadow-sm transition-colors duration-300 ease-in-out cursor-pointer",
-    primary: "px-6 py-2.5 text-base bg-brand-primary text-white font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-colors duration-300 ease-in-out cursor-pointer"
+    primary: "px-6 py-2.5 text-base bg-brand-primary text-ui-bg font-semibold rounded-theme-md shadow-sm hover:opacity-90 transition-colors duration-300 ease-in-out cursor-pointer"
   }.freeze
 
 
   def scribble_button_enabled_classes
     "bg-transparent" \
-    "hover:text-white hover:border-transparent cursor-pointer"
+    "bg-brand-primary  hover:border-transparent cursor-pointer"
   end
 
   def scribble_button_disabled_classes
-    "bg-grey-3 text-grey-3 border-gray-300 cursor-not-allowed transition-all"
+    "bg-brand-primary/30 border-gray-300 cursor-not-allowed transition-all"
   end
 
   def flash_class(type)
@@ -39,11 +39,12 @@ module ApplicationHelper
   def circle_btn_classes(options = {})
     # 1. Grab your size and color options or fall back to defaults
     size       = options[:size] || "w-9 h-9"
-    bg_color   = options[:bg] || "bg-gray-100 hover:bg-gray-200"
-    text_color = options[:text] || "text-gray-700"
+    bg_color   = options[:bg] || "bg-brand-primary hover:bg-brand-primary/60"
+    text_color = options[:text] || "text-ui-bg"
+
 
     # 2. Combine the structural base with the customization classes
-    base = "flex items-center justify-center rounded-full transition-all duration-200 shadow-sm"
+    base = "flex stroke-0 fill-current items-center justify-center rounded-full transition-all duration-200 shadow-sm"
 
     "#{base} #{size} #{bg_color} #{text_color} #{options[:extra]} cursor-pointer"
   end

@@ -33,7 +33,7 @@
 
               <div class="flex items-center gap-2 mt-3 sm:mt-0">
                 <%= link_to "Return to Current", scribble_path(@scribble),
-                        class: "text-sm bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-1.5 px-3 rounded-theme-md shadow-sm transition-all" %>
+                        class: "text-sm bg-brand-primary hover:bg-brand-primary/90 text-ui-bg font-semibold py-1.5 px-3 rounded-theme-md shadow-sm transition-all" %>
 
                 <button type="button" onclick="document.getElementById('version-modal').showModal()" class="<%= circle_btn_classes %>">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -46,7 +46,7 @@
                     title: "Download current version as .txt",
                     class: circle_btn_classes,
                     data: { turbo: false } do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                     <title>Download this version</title>
                     <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
                   </svg>

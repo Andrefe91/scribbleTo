@@ -88,6 +88,7 @@
 	--color-ui-text: var(--ui-text);
 	--color-gray-text: var(--gray-text);
 	--color-main-border: var(--color-main-border);
+	--color-trix-button-bg: var(--color-trix-button-bg);
 
 	--color-grey-10: hsl(210 24% 16%);
 	--color-grey-9: hsl(209 20% 25%);
@@ -115,6 +116,7 @@
 		--ui-text: #0f172a;
 		--gray-text: hsl(211 10% 53%);
 		--color-main-border: hsl(210 16% 82%);
+		--color-trix-button-bg: hsl(338, 100%, 66%);
 	}
 
 	/* Dark Theme */
@@ -128,6 +130,7 @@
 		--ui-text: hsl(0, 0%, 89%);
 		--gray-text: hsl(211 13% 65%);
 		--color-main-border: hsl(210 16% 82%);
+		--color-trix-button-bg: hsl(338, 100%, 66%);
 	}
 
 	/* Custom "Retro" Accent Theme */
@@ -138,6 +141,7 @@
 		--ui-text: hsl(132, 73%, 45%);
 		--gray-text: hsl(135, 96%, 30%);
 		--color-main-border: hsl(138, 93%, 11%);
+		--color-trix-button-bg: hsl(120, 90%, 15%);
 	}
 }
 
