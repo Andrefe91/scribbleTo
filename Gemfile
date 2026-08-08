@@ -69,7 +69,7 @@ end
 
 gem "rack-attack", "~> 6.8"
 
-gem "rubocop", "~> 1.88"
+gem "rubocop", "~> 1.89"
 
 gem "erb-formatter", "~> 0.7.3"
 
