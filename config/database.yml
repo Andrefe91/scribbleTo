@@ -90,13 +90,13 @@ production:
     url: <%= ENV["DATABASE_URL"] %>
   cache:
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["CACHE_DATABASE_URL"] %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["QUEUE_DATABASE_URL"] %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["CABLE_DATABASE_URL"] %>
     migrations_paths: db/cable_migrate
